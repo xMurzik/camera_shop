@@ -10,7 +10,7 @@ export const fetchItems = createAsyncThunk<
   { dispatch: AppDispatch; state: State }
 >('items/fetchItems', async () => {
   const { data } = await axios.get<Array<IItem>>(
-    `${MAIN_API_URL + ApiRoute.getAllItems}`
+    `${MAIN_API_URL}${ApiRoute.getAllItems}`
   );
 
   return data;

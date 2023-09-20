@@ -4,12 +4,14 @@ import { fetchItems } from './async-items';
 
 interface IItemsSlice {
   items: Array<IItem>;
+  filtredItems: Array<IItem>;
   isLoading: boolean;
   isError: boolean;
 }
 
 const initialState: IItemsSlice = {
   items: [],
+  filtredItems: [],
   isLoading: true,
   isError: false,
 };

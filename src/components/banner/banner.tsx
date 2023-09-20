@@ -5,9 +5,7 @@ import { fetchPromos } from '../../store/promo-slice/async-promo';
 
 const Banner: React.FC = () => {
   const dispatch = useAppDispatch();
-  const promos = useAppSelector(getPromos);
-
-  console.log(promos);
+  // const promos = useAppSelector(getPromos);
 
   useEffect(() => {
     dispatch(fetchPromos());
