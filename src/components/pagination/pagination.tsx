@@ -1,12 +1,14 @@
 import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { useSearchParams } from 'react-router-dom';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 import { checkUrlParams, chunkArray } from '../../utils/pagination';
 import s from './pagination.module.scss';
+import { onClickPagination } from '../../store/items-slice/items-slice';
 
 const Pagination: React.FC = () => {
+  const dispatch = useAppDispatch();
   const items = useAppSelector(getAllItems);
   const [params, setParams] = useSearchParams();
 
@@ -45,8 +47,9 @@ const Pagination: React.FC = () => {
   const onClickNumberPagination = useCallback(
     (value: number) => () => {
       setParams({ page: value.toString() });
+      dispatch(onClickPagination(value));
     },
-    [setParams]
+    [dispatch, setParams]
   );
 
   if (items.length <= 9) {
@@ -60,11 +63,13 @@ const Pagination: React.FC = () => {
       ].toString(),
     });
     setSelectedCurrentPageUrl((prev) => prev - 1);
+    dispatch(onClickPagination(Number(urlValue) - 1));
   };
 
   const onClickNext = () => {
     setParams({ page: allPaggPages[selectedCurrentPageUrl + 1][0].toString() });
     setSelectedCurrentPageUrl((prev) => prev + 1);
+    dispatch(onClickPagination(Number(urlValue) + 1));
   };
 
   const isFirstPage = !(selectedCurrentPageUrl === 0);

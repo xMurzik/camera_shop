@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
-import { getAllItems } from '../../store/items-slice/items-selectors';
+import { getFiltredItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
 
 const ItemsList: React.FC = () => {
-  const items = useAppSelector(getAllItems);
+  const items = useAppSelector(getFiltredItems);
 
   return (
     <div className="cards catalog__cards">
