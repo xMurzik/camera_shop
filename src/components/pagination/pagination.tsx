@@ -4,8 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 import { checkUrlParams, chunkArray } from '../../utils/pagination';
-import s from './pagination.module.scss';
 import { onClickPagination } from '../../store/items-slice/items-slice';
+import s from './pagination.module.scss';
 
 const Pagination: React.FC = () => {
   const dispatch = useAppDispatch();

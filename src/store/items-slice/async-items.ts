@@ -24,7 +24,7 @@ export const fetchItems = createAsyncThunk<
       dispatch(setFiltredItems(filtredItems));
     } else {
       let filtredItems: Array<IItem> = [];
-      const maxPages = data.length / MAX_ELEMS_ON_ONE_PAGE;
+      const maxPages = Math.ceil(data.length / MAX_ELEMS_ON_ONE_PAGE);
       if (
         Number(pageParam) > maxPages ||
         Number(pageParam) < 0 ||

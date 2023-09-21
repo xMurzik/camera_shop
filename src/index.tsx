@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { store } from './store/store';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { fetchItems } from './store/items-slice/async-items';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles.scss';
 
 await store.dispatch(fetchItems());
 
