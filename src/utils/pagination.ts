@@ -1,4 +1,6 @@
-export function chunkArray(array: Array<number>, chunk: number) {
+import { IItem } from '../types/items';
+
+export function chunkArray(array: Array<number | IItem>, chunk: number) {
   const newArray = [];
   for (let i = 0; i < array.length; i += chunk) {
     newArray.push(array.slice(i, i + chunk));

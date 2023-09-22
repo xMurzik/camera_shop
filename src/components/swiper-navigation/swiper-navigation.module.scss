@@ -1,0 +1,53 @@
+.buttonNext {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: 40px;
+  width: 40px;
+  left: unset;
+  right: 0;
+  overflow: unset;
+  border-radius: 20px;
+  border: none;
+  background-color: #f4f4fc;
+
+  color: #7575e2;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    background-color: #cbcbd499;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: unset;
+    background-color: #f4f4fc;
+  }
+}
+
+.buttonPrev {
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%) rotate(180deg);
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: #f4f4fc;
+  color: #7575e2;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    background-color: #cbcbd499;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    background-color: #f4f4fc;
+    cursor: unset;
+  }
+}

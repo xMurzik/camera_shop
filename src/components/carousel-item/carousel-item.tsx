@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IItem } from '../../types/items';
-import RatingStatic from '../rating-static/rating-static';
 import { Path } from '../../constants/common';
+import RatingStatic from '../rating-static/rating-static';
 
-const ItemCard: React.FC<IItem> = (props) => {
+const CarouselItem: React.FC<IItem> = (props) => {
   const {
     name,
     id,
@@ -16,9 +16,8 @@ const ItemCard: React.FC<IItem> = (props) => {
     rating,
     reviewCount,
   } = props;
-
   return (
-    <div className="product-card is-active">
+    <>
       <div className="product-card__img">
         <picture>
           <source
@@ -57,8 +56,8 @@ const ItemCard: React.FC<IItem> = (props) => {
           Подробнее
         </Link>
       </div>
-    </div>
+    </>
   );
 };
 
-export default ItemCard;
+export default CarouselItem;
