@@ -28,7 +28,6 @@ const SimilarItemsCarousel: React.FC = () => {
   if (!data.length) {
     return null;
   }
-  console.log(data);
 
   const itemsToRender = chunkArray(data, 3) as Array<Array<IItem>>;
 

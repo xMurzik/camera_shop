@@ -4,4 +4,5 @@ export enum ApiRoute {
   getAllItems = 'cameras',
   promo = 'promo',
   similar = 'similar',
+  reviews = 'reviews',
 }

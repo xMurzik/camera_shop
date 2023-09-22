@@ -1,6 +1,10 @@
+import { IComment } from '../types/comments';
 import { IItem } from '../types/items';
 
-export function chunkArray(array: Array<number | IItem>, chunk: number) {
+export function chunkArray(
+  array: Array<number | IItem | IComment>,
+  chunk: number
+) {
   const newArray = [];
   for (let i = 0; i < array.length; i += chunk) {
     newArray.push(array.slice(i, i + chunk));

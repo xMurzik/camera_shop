@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
-import { fetchItem } from './async-item';
+import { IComment } from '../../types/comments';
+import { fetchItem, fetchPostComment } from './async-item';
+import { toast } from 'react-toastify';
 
 interface IItemSlice {
   item: IItem | null;
   similarItems: Array<IItem>;
+  comments: Array<IComment>;
 }
 
 const initialState: IItemSlice = {
   item: null,
   similarItems: [],
+  comments: [],
 };
 
 const itemSlice = createSlice({
@@ -21,10 +25,17 @@ const itemSlice = createSlice({
       .addCase(fetchItem.fulfilled, (state, action) => {
         state.item = action.payload.currentData;
         state.similarItems = action.payload.similarItems;
+        state.comments = action.payload.comments;
       })
       .addCase(fetchItem.rejected, (state) => {
         state.item = null;
         state.similarItems = [];
+      })
+      .addCase(fetchPostComment.fulfilled, (state, action) => {
+        state.comments.unshift(action.payload);
+      })
+      .addCase(fetchPostComment.rejected, () => {
+        toast.warn('Ошибка отправки, попробуйте позже');
       });
   },
 });

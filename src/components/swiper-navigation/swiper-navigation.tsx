@@ -11,7 +11,11 @@ const SwiperNavigation: React.FC = () => {
         className={s.buttonPrev}
         type="button"
         aria-label="Предыдущий слайд"
-        onClick={() => swiper.slidePrev()}
+        onClick={() => {
+          swiper.slidePrev();
+          swiper.slidePrev();
+          swiper.slidePrev();
+        }}
       >
         <svg width={7} height={12} aria-hidden="true">
           <use xlinkHref="#icon-arrow" />
@@ -22,7 +26,11 @@ const SwiperNavigation: React.FC = () => {
         className={s.buttonNext}
         type="button"
         aria-label="Следующий слайд"
-        onClick={() => swiper.slideNext()}
+        onClick={() => {
+          swiper.slideNext();
+          swiper.slideNext();
+          swiper.slideNext();
+        }}
       >
         <svg width={7} height={12} aria-hidden="true">
           <use xlinkHref="#icon-arrow" />

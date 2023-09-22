@@ -24,7 +24,7 @@ const Pagination: React.FC = () => {
           .fill(null)
           .map((_, i) => i + 1),
         3
-      ),
+      ) as number[][],
     [maxPageCount]
   );
 
