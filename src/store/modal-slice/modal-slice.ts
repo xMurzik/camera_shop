@@ -15,7 +15,7 @@ const initialState: ICatalogModalSlice = {
   isShowModalSuccesBasket: false,
 };
 
-const catalogModalSlice = createSlice({
+const modalSlice = createSlice({
   name: '@modal',
   initialState,
   reducers: {
@@ -55,6 +55,6 @@ export const {
   onClickBuy,
   onClickOverlayOrExit,
   onClickSuccessBuy,
-} = catalogModalSlice.actions;
+} = modalSlice.actions;
 
-export default catalogModalSlice.reducer;
+export default modalSlice.reducer;
