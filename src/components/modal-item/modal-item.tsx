@@ -1,24 +1,46 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   getCurrentActiveBasketItem,
   getCurrentActiveCatalogItem,
-} from '../../store/catalog-modal-slice/catalog-modal-selectorts';
+  getIsShowModalToBuy,
+} from '../../store/modal-slice/modal-selectorts';
+import {
+  removeItemFromBasket,
+  setNewItemToBasket,
+} from '../../store/basket-slice/basket-slice';
+import {
+  onClickOverlayOrExit,
+  onClickSuccessBuy,
+} from '../../store/modal-slice/modal-slice';
 
 interface IModalItemProps {
   isDelete: boolean;
-  isActive: boolean;
-  onClickOverlay?: () => void;
 }
 
 const ModalItem: React.FC<IModalItemProps> = (props) => {
-  const { isDelete, isActive, onClickOverlay } = props;
+  const dispatch = useAppDispatch();
+  const { isDelete } = props;
+  const isActive = useAppSelector(getIsShowModalToBuy);
   const data = useAppSelector(
     isDelete ? getCurrentActiveBasketItem : getCurrentActiveCatalogItem
   );
 
   const onClickExit = () => {
-    onClickOverlay?.();
+    dispatch(onClickOverlayOrExit());
+  };
+
+  const onClickButtonSuccessBuy = () => {
+    if (data) {
+      dispatch(setNewItemToBasket(data));
+      dispatch(onClickSuccessBuy());
+    }
+  };
+
+  const onClickDeleteFromBasket = () => {
+    if (data) {
+      dispatch(removeItemFromBasket(data.id));
+    }
   };
 
   if (!data) {
@@ -74,6 +96,7 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
               <button
                 className="btn btn--purple modal__btn modal__btn--half-width"
                 type="button"
+                onClick={onClickDeleteFromBasket}
               >
                 Удалить
               </button>
@@ -89,6 +112,9 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
               <button
                 className="btn btn--purple modal__btn modal__btn--fit-width"
                 type="button"
+                id="add-item-to-basket"
+                onClick={onClickButtonSuccessBuy}
+                autoFocus
               >
                 <svg width="24" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-add-basket"></use>

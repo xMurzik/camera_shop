@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { IItem } from '../../types/items';
 import { Path } from '../../constants/common';
 import RatingStatic from '../rating-static/rating-static';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { onClickBuy } from '../../store/modal-slice/modal-slice';
 
 const CarouselItem: React.FC<IItem> = (props) => {
   const {
@@ -16,6 +18,12 @@ const CarouselItem: React.FC<IItem> = (props) => {
     rating,
     reviewCount,
   } = props;
+
+  const dispatch = useAppDispatch();
+
+  const onClickBuyButton = () => {
+    dispatch(onClickBuy(props));
+  };
   return (
     <>
       <div className="product-card__img">
@@ -49,7 +57,11 @@ const CarouselItem: React.FC<IItem> = (props) => {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">
+        <button
+          onClick={onClickBuyButton}
+          className="btn btn--purple product-card__btn"
+          type="button"
+        >
           Купить
         </button>
         <Link className="btn btn--transparent" to={`${Path.catalog}${id}`}>

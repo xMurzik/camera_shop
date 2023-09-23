@@ -31,9 +31,6 @@ const itemSlice = createSlice({
         state.item = null;
         state.similarItems = [];
       })
-      .addCase(fetchPostComment.fulfilled, (state, action) => {
-        state.comments.unshift(action.payload);
-      })
       .addCase(fetchPostComment.rejected, () => {
         toast.warn('Ошибка отправки, попробуйте позже');
       });

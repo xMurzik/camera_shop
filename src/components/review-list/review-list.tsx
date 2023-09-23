@@ -49,6 +49,7 @@ const ReviewList: React.FC = () => {
 
     document.body.style.overflow = 'hidden';
   };
+
   return (
     <>
       <div className="page-content__section">

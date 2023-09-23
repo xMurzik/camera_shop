@@ -6,6 +6,7 @@ import { Path } from '../../constants/common';
 import RatingStatic from '../../components/rating-static/rating-static';
 import classNames from 'classnames';
 import { getDataItem } from '../../store/item-slice/item-selectorts';
+import { onClickBuy } from '../../store/modal-slice/modal-slice';
 
 const enum InfoItem {
   description = 'description',
@@ -40,6 +41,12 @@ const ItemPageInfo: React.FC = () => {
         .finally(() => setIsLoading(false));
     }
   }, [dispatch, id, navigate, setIsLoading]);
+
+  const onClickButtonBuy = () => {
+    if (dataItem) {
+      dispatch(onClickBuy(dataItem));
+    }
+  };
 
   if (!dataItem || isLoading) {
     return null;
@@ -106,7 +113,11 @@ const ItemPageInfo: React.FC = () => {
                 <span className="visually-hidden">Цена:</span>
                 {dataItem.price} ₽
               </p>
-              <button className="btn btn--purple" type="button">
+              <button
+                onClick={onClickButtonBuy}
+                className="btn btn--purple"
+                type="button"
+              >
                 <svg width={24} height={16} aria-hidden="true">
                   <use xlinkHref="#icon-add-basket" />
                 </svg>

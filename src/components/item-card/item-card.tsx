@@ -3,18 +3,11 @@ import { Link } from 'react-router-dom';
 import { IItem } from '../../types/items';
 import RatingStatic from '../rating-static/rating-static';
 import { Path } from '../../constants/common';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { onClickBuy } from '../../store/modal-slice/modal-slice';
 
-interface IITemCardProps extends IItem {
-  onClickBuy: (item: IItem) => void;
-}
-
-const ItemCard: React.FC<IITemCardProps> = (props) => {
+const ItemCard: React.FC<IItem> = (props) => {
   const {
-    category,
-    description,
-    level,
-    type,
-    vendorCode,
     name,
     id,
     previewImg,
@@ -24,27 +17,12 @@ const ItemCard: React.FC<IITemCardProps> = (props) => {
     price,
     rating,
     reviewCount,
-    onClickBuy,
   } = props;
 
+  const dispatch = useAppDispatch();
+
   const onClickButtonBuy = () => {
-    const itemToSend: IItem = {
-      category,
-      description,
-      level,
-      type,
-      vendorCode,
-      name,
-      id,
-      previewImg,
-      previewImg2x,
-      previewImgWebp,
-      previewImgWebp2x,
-      price,
-      rating,
-      reviewCount,
-    };
-    onClickBuy(itemToSend);
+    dispatch(onClickBuy(props));
   };
 
   return (

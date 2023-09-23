@@ -25,6 +25,7 @@ const Banner: React.FC = () => {
         delay: 3000,
         disableOnInteraction: false,
       }}
+      cssMode
       pagination={{
         clickable: true,
       }}

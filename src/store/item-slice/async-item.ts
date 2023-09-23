@@ -40,14 +40,10 @@ export const fetchItem = createAsyncThunk<
 });
 
 export const fetchPostComment = createAsyncThunk<
-  IComment,
+  void,
   Omit<IComment, 'id' | 'createAt'>,
   { dispatch: AppDispatch; state: State }
->('comments/fetchPostComment', async (body) => {
-  const { data } = await axios.post<IComment>(
-    `${MAIN_API_URL + ApiRoute.reviews}`,
-    body
-  );
-
-  return data;
+>('comments/fetchPostComment', async (body, { dispatch }) => {
+  await axios.post<IComment>(`${MAIN_API_URL + ApiRoute.reviews}`, body);
+  await dispatch(fetchItem(body.cameraId));
 });
