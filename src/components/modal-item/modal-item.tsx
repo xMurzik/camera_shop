@@ -5,10 +5,9 @@ import {
   getCurrentActiveCatalogItem,
   getIsShowModalToBuy,
 } from '../../store/modal-slice/modal-selectorts';
-import {
-  removeItemFromBasket,
-  setNewItemToBasket,
-} from '../../store/basket-slice/basket-slice';
+import // removeItemFromBasket,
+// setNewItemToBasket,
+'../../store/basket-slice/basket-slice';
 import {
   onClickOverlayOrExit,
   onClickSuccessBuy,
@@ -32,16 +31,16 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
 
   const onClickButtonSuccessBuy = () => {
     if (data) {
-      dispatch(setNewItemToBasket(data));
+      // dispatch(setNewItemToBasket(data));
       dispatch(onClickSuccessBuy());
     }
   };
 
-  const onClickDeleteFromBasket = () => {
-    if (data) {
-      dispatch(removeItemFromBasket(data.id));
-    }
-  };
+  // const onClickDeleteFromBasket = () => {
+  //   if (data) {
+  //     dispatch(removeItemFromBasket(data.id));
+  //   }
+  // };
 
   if (!data) {
     return null;
@@ -96,7 +95,7 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
               <button
                 className="btn btn--purple modal__btn modal__btn--half-width"
                 type="button"
-                onClick={onClickDeleteFromBasket}
+                // onClick={onClickDeleteFromBasket}
               >
                 Удалить
               </button>
