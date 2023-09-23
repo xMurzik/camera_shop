@@ -1,12 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import ReviewCard from '../review-card/review-card';
 import ModalReview from '../modal-review/modal-review';
+import ModalSuccess from '../modal-success/modal-success';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getComments } from '../../store/item-slice/item-selectorts';
 import { MAX_PAGE_COMMENTS } from '../../constants/comments';
 import { chunkArray } from '../../utils/pagination';
-import ModalSuccess from '../modal-success/modal-success';
 
 const ReviewList: React.FC = () => {
   const { id } = useParams();
@@ -19,12 +19,20 @@ const ReviewList: React.FC = () => {
 
   useEffect(() => {
     setCommentsPage(1);
+
     const onClickEsc = (evt: KeyboardEvent) => {
       if (evt.code === 'Escape') {
         setIsShowReviewModal(false);
         setisShowSuccessModal(false);
+
+        setTimeout(() => {
+          (document.getElementById('form_review') as HTMLFormElement)?.reset();
+        }, 300);
+
+        document.body.style.overflow = 'unset';
       }
     };
+
     document.addEventListener('keydown', onClickEsc);
 
     return () => {
@@ -34,6 +42,12 @@ const ReviewList: React.FC = () => {
 
   const onClickNewReview = () => {
     setIsShowReviewModal(true);
+
+    setTimeout(() => {
+      document.getElementById('name_input_modal')?.focus();
+    }, 500);
+
+    document.body.style.overflow = 'hidden';
   };
   return (
     <>
@@ -65,17 +79,16 @@ const ReviewList: React.FC = () => {
           </div>
         </section>
       </div>
-      {isShowReviewModal && (
-        <ModalReview
-          setIsShowModalOverlay={setIsShowReviewModal}
-          setIsShowModalSuccess={setisShowSuccessModal}
-          isActive={isShowReviewModal}
-        />
-      )}
+      <ModalReview
+        setIsShowModalOverlay={setIsShowReviewModal}
+        setIsShowModalSuccess={setisShowSuccessModal}
+        isActive={isShowReviewModal}
+      />
 
-      {isShowSuccessModal && (
-        <ModalSuccess setIsShowModalSuccess={setisShowSuccessModal} />
-      )}
+      <ModalSuccess
+        isActive={isShowSuccessModal}
+        setIsShowModalSuccess={setisShowSuccessModal}
+      />
     </>
   );
 };

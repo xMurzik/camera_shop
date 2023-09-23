@@ -13,10 +13,10 @@ const enum InfoItem {
 }
 
 const ItemPageInfo: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(true);
   const dataItem = useAppSelector(getDataItem);
 
   const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const ItemPageInfo: React.FC = () => {
       dispatch(fetchItem(Number(id)))
         .unwrap()
         .catch(() => {
-          navigate(Path.catalog);
+          navigate(Path.notFound);
         })
         .finally(() => setIsLoading(false));
     }

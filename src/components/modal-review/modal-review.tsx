@@ -14,6 +14,7 @@ interface IModalReviewProps {
 }
 
 const ModalReview: React.FC<IModalReviewProps> = ({
+  isActive,
   setIsShowModalOverlay,
   setIsShowModalSuccess,
 }) => {
@@ -37,13 +38,6 @@ const ModalReview: React.FC<IModalReviewProps> = ({
     setFocus('name');
   }, [setFocus]);
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
   const onSubmit: SubmitHandler<IReviewComment> = (data) => {
     if (id) {
       const dataForFetch: Omit<IComment, 'id' | 'createAt'> = {
@@ -60,6 +54,9 @@ const ModalReview: React.FC<IModalReviewProps> = ({
         .then(() => {
           setIsShowModalOverlay(false);
           setIsShowModalSuccess(true);
+          setTimeout(() => {
+            document.getElementById('button-back-to-shop')?.focus();
+          }, 500);
           reset();
         });
     }
@@ -71,17 +68,18 @@ const ModalReview: React.FC<IModalReviewProps> = ({
 
   const onClickModalOverlay = () => {
     setIsShowModalOverlay(false);
+    document.body.style.overflow = 'unset';
     setTimeout(() => reset(), 500);
   };
 
   return (
-    <div className="modal is-active">
+    <div className={`modal ${isActive ? 'is-active' : ''}`}>
       <div className="modal__wrapper">
         <div onClick={onClickModalOverlay} className="modal__overlay" />
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="form-review">
-            <form onSubmit={onSubmitFormSend} method="post">
+            <form id="form_review" onSubmit={onSubmitFormSend} method="post">
               <div className="form-review__rate">
                 <fieldset className="rate form-review__item">
                   <legend className="rate__caption">
@@ -105,7 +103,9 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                         <use xlinkHref="#icon-snowflake" />
                       </svg>
                     </span>
+
                     <input
+                      id="name_input_modal"
                       type="text"
                       placeholder="Введите ваше имя"
                       style={{ border: errors.name ? '2px solid red' : '' }}

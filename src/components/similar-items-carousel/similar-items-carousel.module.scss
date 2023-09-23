@@ -1,4 +1,5 @@
 .buttonNext {
+  z-index: 1;
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
@@ -24,13 +25,13 @@
 }
 
 .buttonPrev {
+  z-index: 1;
   position: absolute;
   top: 50%;
-  transform: translate(0, -50%) rotate(180deg);
+  border: none;
   height: 40px;
   width: 40px;
   border-radius: 20px;
-  border: none;
   background-color: #f4f4fc;
   color: #7575e2;
   transition: opacity 0.3s ease;
@@ -45,8 +46,4 @@
     background-color: #f4f4fc;
     cursor: unset;
   }
-}
-
-.containerItemsCarousel {
-  border: 1px solid red;
 }

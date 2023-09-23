@@ -1,25 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface IModalSuccessProps {
+  isActive: boolean;
   setIsShowModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ModalSuccess: React.FC<IModalSuccessProps> = ({
+  isActive,
   setIsShowModalSuccess,
 }) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
   const onClickButtonBackToShop = () => {
     setIsShowModalSuccess(false);
+    document.body.style.overflow = 'unset';
   };
 
   return (
-    <div className="modal is-active modal--narrow">
+    <div className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}>
       <div className="modal__wrapper">
         <div onClick={onClickButtonBackToShop} className="modal__overlay"></div>
         <div className="modal__content">
@@ -37,7 +33,7 @@ const ModalSuccess: React.FC<IModalSuccessProps> = ({
               onClick={onClickButtonBackToShop}
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
-              autoFocus
+              id="button-back-to-shop"
             >
               Вернуться к покупкам
             </button>

@@ -4,8 +4,17 @@ import { IItem } from '../../types/items';
 import RatingStatic from '../rating-static/rating-static';
 import { Path } from '../../constants/common';
 
-const ItemCard: React.FC<IItem> = (props) => {
+interface IITemCardProps extends IItem {
+  onClickBuy: (item: IItem) => void;
+}
+
+const ItemCard: React.FC<IITemCardProps> = (props) => {
   const {
+    category,
+    description,
+    level,
+    type,
+    vendorCode,
     name,
     id,
     previewImg,
@@ -15,7 +24,28 @@ const ItemCard: React.FC<IItem> = (props) => {
     price,
     rating,
     reviewCount,
+    onClickBuy,
   } = props;
+
+  const onClickButtonBuy = () => {
+    const itemToSend: IItem = {
+      category,
+      description,
+      level,
+      type,
+      vendorCode,
+      name,
+      id,
+      previewImg,
+      previewImg2x,
+      previewImgWebp,
+      previewImgWebp2x,
+      price,
+      rating,
+      reviewCount,
+    };
+    onClickBuy(itemToSend);
+  };
 
   return (
     <div className="product-card is-active">
@@ -50,7 +80,11 @@ const ItemCard: React.FC<IItem> = (props) => {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">
+        <button
+          onClick={onClickButtonBuy}
+          className="btn btn--purple product-card__btn"
+          type="button"
+        >
           Купить
         </button>
         <Link className="btn btn--transparent" to={`${Path.catalog}${id}`}>
