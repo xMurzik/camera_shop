@@ -5,9 +5,10 @@ import {
   getCurrentActiveCatalogItem,
   getIsShowModalToBuy,
 } from '../../store/modal-slice/modal-selectorts';
-import // removeItemFromBasket,
-// setNewItemToBasket,
-'../../store/basket-slice/basket-slice';
+// import {
+//   removeItemFromBasket,
+//   setNewItemToBasket,
+// } from '../../store/basket-slice/basket-slice';
 import {
   onClickOverlayOrExit,
   onClickSuccessBuy,
