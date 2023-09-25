@@ -47,6 +47,7 @@ const itemsSlice = createSlice({
       })
       .addCase(fetchItems.rejected, (state) => {
         state.isError = true;
+        state.isLoading = false;
       });
   },
 });

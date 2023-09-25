@@ -32,12 +32,6 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
 
   const urlValue = params.get('page');
 
-  useEffect(() => {
-    if (checkUrlParams(urlValue, maxPageCount)) {
-      setParams({ page: '1' });
-    }
-  }, [allPaggPages, maxPageCount, params, setParams, urlValue]);
-
   const [selectedCurrentPageUrl, setSelectedCurrentPageUrl] = useState(() => {
     if (checkUrlParams(urlValue, maxPageCount)) {
       return 0;
@@ -45,6 +39,14 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
       return allPaggPages.findIndex((el) => el.includes(Number(urlValue)));
     }
   });
+
+  useEffect(() => {
+    if (checkUrlParams(urlValue, maxPageCount)) {
+      setParams({ page: '1' });
+      setSelectedCurrentPageUrl(0);
+      dispatch(onClickPagination(0));
+    }
+  }, [allPaggPages, dispatch, maxPageCount, params, setParams, urlValue]);
 
   const onClickNumberPagination = useCallback(
     (value: number) => () => {

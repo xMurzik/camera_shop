@@ -30,6 +30,7 @@ const itemSlice = createSlice({
       .addCase(fetchItem.rejected, (state) => {
         state.item = null;
         state.similarItems = [];
+        state.comments = [];
       })
       .addCase(fetchPostComment.rejected, () => {
         toast.warn('Ошибка отправки, попробуйте позже');

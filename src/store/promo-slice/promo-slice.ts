@@ -22,13 +22,14 @@ const promoSlice = createSlice({
     builder
       .addCase(fetchPromos.pending, (state) => {
         state.isLoading = true;
-        state.isError = true;
+        state.isError = false;
       })
       .addCase(fetchPromos.fulfilled, (state, action) => {
         state.isLoading = false;
         state.promos = action.payload;
       })
       .addCase(fetchPromos.rejected, (state) => {
+        state.promos = [];
         state.isError = true;
         state.isLoading = false;
       });
