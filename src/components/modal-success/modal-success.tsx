@@ -15,7 +15,10 @@ const ModalSuccess: React.FC<IModalSuccessProps> = ({
   };
 
   return (
-    <div className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}>
+    <div
+      data-testid="modal-success"
+      className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}
+    >
       <div className="modal__wrapper">
         <div onClick={onClickButtonBackToShop} className="modal__overlay"></div>
         <div className="modal__content">

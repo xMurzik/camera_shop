@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import RateBar from '../rate-bar/rate-bar';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IReviewComment } from '../../types/review';
@@ -26,17 +26,12 @@ const ModalReview: React.FC<IModalReviewProps> = ({
     reset,
     handleSubmit,
     watch,
-    setFocus,
     formState: { errors },
   } = useForm<IReviewComment>({
     defaultValues: {
       comment: '',
     },
   });
-
-  useEffect(() => {
-    setFocus('name');
-  }, [setFocus]);
 
   const onSubmit: SubmitHandler<IReviewComment> = (data) => {
     if (id) {
@@ -131,6 +126,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                     </span>
                     <input
                       type="text"
+                      id="advantage_input"
                       style={{
                         border: errors.advantage ? '2px solid red' : '',
                       }}

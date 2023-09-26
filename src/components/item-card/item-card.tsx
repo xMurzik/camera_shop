@@ -62,10 +62,15 @@ const ItemCard: React.FC<IItem> = (props) => {
           onClick={onClickButtonBuy}
           className="btn btn--purple product-card__btn"
           type="button"
+          data-testid="buy_button"
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`${Path.catalog}${id}`}>
+        <Link
+          data-testid="button_more_info"
+          className="btn btn--transparent"
+          to={`${Path.catalog}${id}`}
+        >
           Подробнее
         </Link>
       </div>
