@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
-import { getItemsFromBasket } from '../../store/basket-slice/basket-selectors';
 import BasketItem from '../basket-item/basket-item';
+import { getFiltredItems } from '../../store/items-slice/items-selectors';
 
 const BasketItemsList: React.FC = () => {
-  const itemsBasket = useAppSelector(getItemsFromBasket);
+  const itemsBasket = useAppSelector(getFiltredItems);
   return (
     <ul className="basket__list">
       {itemsBasket.map((el) => (
