@@ -6,7 +6,7 @@ interface IRatingProps {
   rating: number;
 }
 
-function RatingStatic({ rating }: IRatingProps): React.ReactNode {
+function RatingStatic({ rating }: IRatingProps): JSX.Element {
   return RATING_ARR.map((el) => (
     <svg key={el} data-testid="star" width={17} height={16} aria-hidden="true">
       <use xlinkHref={el <= rating ? '#icon-full-star' : '#icon-star'} />
