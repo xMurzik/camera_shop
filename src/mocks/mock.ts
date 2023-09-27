@@ -93,7 +93,4 @@ export const createFakeStore = (): State => ({
     isShowModalToBuy: false,
     isShowModalSuccesBasket: false,
   },
-  basket: {
-    basketOfItems: [],
-  },
 });
