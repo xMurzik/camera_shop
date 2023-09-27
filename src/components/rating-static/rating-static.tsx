@@ -8,7 +8,7 @@ interface IRatingProps {
 
 const RatingStatic: React.FC<IRatingProps> = ({ rating }) =>
   RATING_ARR.map((el) => (
-    <svg data-testid="star" key={el} width={17} height={16} aria-hidden="true">
+    <svg key={el} data-testid="star" width={17} height={16} aria-hidden="true">
       <use xlinkHref={el <= rating ? '#icon-full-star' : '#icon-star'} />
     </svg>
   ));
