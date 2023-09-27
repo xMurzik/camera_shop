@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
+import { TIMEOUT } from '../../constants/common';
 
 interface ICatalogModalSlice {
   currentActiveCatalogItem: IItem | null;
@@ -31,7 +32,7 @@ const modalSlice = createSlice({
       document.body.style.overflow = 'hidden';
       setTimeout(() => {
         document.getElementById('add-item-to-basket')?.focus();
-      }, 300);
+      }, TIMEOUT);
     },
     onClickOverlayOrExit: (state) => {
       state.isShowModalSuccesBasket = false;
@@ -44,7 +45,7 @@ const modalSlice = createSlice({
 
       setTimeout(() => {
         document.getElementById('cont-to-buy')?.focus();
-      }, 300);
+      }, TIMEOUT);
     },
   },
 });

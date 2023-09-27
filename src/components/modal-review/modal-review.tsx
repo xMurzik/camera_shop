@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { fetchPostComment } from '../../store/item-slice/async-item';
 import { useParams } from 'react-router-dom';
 import { IComment } from '../../types/comments';
+import { TIMEOUT } from '../../constants/common';
 
 interface IModalReviewProps {
   isActive: boolean;
@@ -51,7 +52,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
           setIsShowModalSuccess(true);
           setTimeout(() => {
             document.getElementById('button-back-to-shop')?.focus();
-          }, 500);
+          }, TIMEOUT);
           reset();
         });
     }
@@ -64,7 +65,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
   const onClickModalOverlay = () => {
     setIsShowModalOverlay(false);
     document.body.style.overflow = 'unset';
-    setTimeout(() => reset(), 500);
+    setTimeout(() => reset(), TIMEOUT);
   };
 
   return (

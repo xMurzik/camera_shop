@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { getComments } from '../../store/item-slice/item-selectorts';
 import { MAX_PAGE_COMMENTS } from '../../constants/comments';
 import { chunkArray } from '../../utils/pagination';
+import { TIMEOUT } from '../../constants/common';
 
 const ReviewList: React.FC = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const ReviewList: React.FC = () => {
 
     setTimeout(() => {
       document.getElementById('name_input_modal')?.focus();
-    }, 500);
+    }, TIMEOUT);
 
     document.body.style.overflow = 'hidden';
   };
