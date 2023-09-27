@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Link } from 'react-router-dom';
 
 const Banner: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -54,9 +55,9 @@ const Banner: React.FC = () => {
               <span className="banner__text">
                 Профессиональная камера от&nbsp;известного производителя
               </span>
-              <a className="btn" href="#">
+              <Link to={`${el.id}`} className="btn">
                 Подробнее
-              </a>
+              </Link>
             </p>
           </div>
         </SwiperSlide>

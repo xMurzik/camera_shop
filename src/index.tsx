@@ -9,7 +9,7 @@ import { fetchItems } from './store/items-slice/async-items';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.scss';
 
-await store.dispatch(fetchItems());
+store.dispatch(fetchItems());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
