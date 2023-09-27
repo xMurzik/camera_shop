@@ -5,7 +5,7 @@ import itemSlice from './item-slice/item-slice';
 import modalSlice from './modal-slice/modal-slice';
 import basketSlice from './basket-slice/basket-slice';
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   promo: promoSlice,
   items: itemsSlice,
   item: itemSlice,
