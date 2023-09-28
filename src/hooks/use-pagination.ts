@@ -50,26 +50,46 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
 
   const onClickNumberPagination = useCallback(
     (value: number) => () => {
-      setParams({ page: value.toString() });
       dispatch(onClickPagination(value));
     },
-    [dispatch, setParams]
+    [dispatch]
   );
 
   const onClickPrev = () => {
-    setParams({
-      page: allPaggPages[selectedCurrentPageUrl - 1][
-        allPaggPages[selectedCurrentPageUrl - 1].length - 1
-      ].toString(),
-    });
-    setSelectedCurrentPageUrl((prev) => prev - 1);
-    dispatch(onClickPagination(Number(urlValue) - 1));
+    const currentPage = allPaggPages[selectedCurrentPageUrl];
+    const newUrlValue = Number(urlValue) - 1;
+    const isPageLast = currentPage.findIndex((el) => el === newUrlValue);
+
+    if (isPageLast === -1) {
+      const newCurrentPage = [...allPaggPages[selectedCurrentPageUrl - 1]];
+      const numberOfNewPage = newCurrentPage[newCurrentPage.length - 1];
+      setParams({
+        page: numberOfNewPage.toString(),
+      });
+      setSelectedCurrentPageUrl((prev) => prev - 1);
+      dispatch(onClickPagination(numberOfNewPage));
+    } else {
+      setParams({
+        page: newUrlValue.toString(),
+      });
+      dispatch(onClickPagination(newUrlValue));
+    }
   };
 
   const onClickNext = () => {
-    setParams({ page: allPaggPages[selectedCurrentPageUrl + 1][0].toString() });
-    setSelectedCurrentPageUrl((prev) => prev + 1);
-    dispatch(onClickPagination(Number(urlValue) + 1));
+    const currentPage = allPaggPages[selectedCurrentPageUrl];
+    const newUrlValue = Number(urlValue) + 1;
+    const isPageLast = currentPage.findIndex((el) => el === newUrlValue);
+    if (isPageLast === -1) {
+      const newCurrentPage = [...allPaggPages[selectedCurrentPageUrl + 1]];
+      const numberOfNewPage = newCurrentPage[0];
+      setParams({ page: numberOfNewPage.toString() });
+      setSelectedCurrentPageUrl((prev) => prev + 1);
+      dispatch(onClickPagination(numberOfNewPage));
+    } else {
+      setParams({ page: newUrlValue.toString() });
+      dispatch(onClickPagination(newUrlValue));
+    }
   };
 
   const isFirstPage = !(selectedCurrentPageUrl === 0);

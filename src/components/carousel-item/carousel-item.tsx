@@ -64,7 +64,7 @@ const CarouselItem: React.FC<IItem> = (props) => {
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`${Path.catalog}${id}`}>
+        <Link className="btn btn--transparent" to={`${Path.Catalog}${id}`}>
           Подробнее
         </Link>
       </div>

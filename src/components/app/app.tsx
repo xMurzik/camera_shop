@@ -9,12 +9,12 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 const App: React.FC = () => (
   <Routes>
-    <Route path={Path.catalog} element={<MainLayout />}>
+    <Route path={Path.Catalog} element={<MainLayout />}>
       <Route index element={<CatalogPage />} />
-      <Route path={Path.basket} element={<BasketPage />} />
-      <Route path={Path.oneItem} element={<ItemPage />} />
+      <Route path={Path.Basket} element={<BasketPage />} />
+      <Route path={Path.OneItem} element={<ItemPage />} />
     </Route>
-    <Route path={Path.notFound} element={<NotFoundPage />} />
+    <Route path={Path.NotFound} element={<NotFoundPage />} />
   </Routes>
 );
 

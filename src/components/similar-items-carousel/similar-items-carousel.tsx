@@ -19,40 +19,39 @@ const SimilarItemsCarousel: React.FC = () => {
         <div className="container">
           <h2 className="title title--h3">Похожие товары</h2>
           <div className="product-similar__slider">
-            <div className="product-similar__slider-list">
-              <Swiper
-                spaceBetween={30}
-                slidesPerGroup={3}
-                watchSlidesProgress
-                slidesPerView={3}
-                modules={[Navigation]}
-                navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left' }}
-              >
-                {data.map((el) => (
-                  <SwiperSlide key={el.id}>
-                    <CarouselItem {...el} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <button
-                className={`${s.buttonPrev} slider-controls--prev arrow-left`}
-                type="button"
-                aria-label="Предыдущий слайд"
-              >
-                <svg width="7" height="12" aria-hidden="true">
-                  <use xlinkHref="#icon-arrow"></use>
-                </svg>
-              </button>
-              <button
-                className={`${s.buttonNext} slider-controls--next arrow-right`}
-                type="button"
-                aria-label="Следующий слайд"
-              >
-                <svg width="7" height="12" aria-hidden="true">
-                  <use xlinkHref="#icon-arrow"></use>
-                </svg>
-              </button>
-            </div>
+            <Swiper
+              className="product-similar__slider-list"
+              spaceBetween={30}
+              slidesPerGroup={3}
+              watchSlidesProgress
+              slidesPerView={3}
+              modules={[Navigation]}
+              navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left' }}
+            >
+              {data.map((el) => (
+                <SwiperSlide key={el.id}>
+                  <CarouselItem {...el} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <button
+              className={`${s.buttonPrev} slider-controls--prev arrow-left`}
+              type="button"
+              aria-label="Предыдущий слайд"
+            >
+              <svg width="7" height="12" aria-hidden="true">
+                <use xlinkHref="#icon-arrow"></use>
+              </svg>
+            </button>
+            <button
+              className={`${s.buttonNext} slider-controls--next arrow-right`}
+              type="button"
+              aria-label="Следующий слайд"
+            >
+              <svg width="7" height="12" aria-hidden="true">
+                <use xlinkHref="#icon-arrow"></use>
+              </svg>
+            </button>
           </div>
         </div>
       </section>

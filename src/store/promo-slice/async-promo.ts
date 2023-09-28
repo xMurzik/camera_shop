@@ -10,7 +10,7 @@ export const fetchPromos = createAsyncThunk<
   { dispatch: AppDispatch; state: State }
 >('promo/fetchPromos', async () => {
   const { data } = await axios.get<Array<IPromo>>(
-    `${MAIN_API_URL + ApiRoute.promo}`
+    `${MAIN_API_URL + ApiRoute.Promo}`
   );
 
   return data;

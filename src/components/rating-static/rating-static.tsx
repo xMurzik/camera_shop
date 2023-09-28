@@ -1,4 +1,4 @@
-const RATING_ARR = [1, 2, 3, 4, 5];
+const RATING_NUMBERS = [1, 2, 3, 4, 5];
 
 interface IRatingProps {
   rating: number;
@@ -7,7 +7,7 @@ interface IRatingProps {
 function RatingStatic({ rating }: IRatingProps): JSX.Element {
   return (
     <>
-      {RATING_ARR.map((el) => (
+      {RATING_NUMBERS.map((el) => (
         <svg
           key={el}
           data-testid="star"

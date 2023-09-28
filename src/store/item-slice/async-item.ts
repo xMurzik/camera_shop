@@ -4,6 +4,7 @@ import { AppDispatch, State } from '../store';
 import { ApiRoute, MAIN_API_URL } from '../../constants/api';
 import { IItem } from '../../types/items';
 import { IComment } from '../../types/comments';
+import { fetchItems } from '../items-slice/async-items';
 
 interface IReturnResponse {
   currentData: IItem;
@@ -17,9 +18,9 @@ export const fetchItem = createAsyncThunk<
   { dispatch: AppDispatch; state: State }
 >('item/fetchItem', async (id) => {
   const urls = [
-    `${MAIN_API_URL + ApiRoute.getAllItems}/${id}`,
-    `${MAIN_API_URL + ApiRoute.getAllItems}/${id}/${ApiRoute.similar}`,
-    `${MAIN_API_URL + ApiRoute.getAllItems}/${id}/${ApiRoute.reviews}`,
+    `${MAIN_API_URL + ApiRoute.GetAllItems}/${id}`,
+    `${MAIN_API_URL + ApiRoute.GetAllItems}/${id}/${ApiRoute.Similar}`,
+    `${MAIN_API_URL + ApiRoute.GetAllItems}/${id}/${ApiRoute.Reviews}`,
   ];
 
   const requests = urls.map((url) => axios.get(url));
@@ -44,6 +45,10 @@ export const fetchPostComment = createAsyncThunk<
   Omit<IComment, 'id' | 'createAt'>,
   { dispatch: AppDispatch; state: State }
 >('comments/fetchPostComment', async (body, { dispatch }) => {
-  await axios.post<IComment>(`${MAIN_API_URL + ApiRoute.reviews}`, body);
+  await axios
+    .post<IComment>(`${MAIN_API_URL + ApiRoute.Reviews}`, body)
+    .then(() => {
+      dispatch(fetchItems());
+    });
   await dispatch(fetchItem(body.cameraId));
 });

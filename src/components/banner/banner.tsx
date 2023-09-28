@@ -7,6 +7,7 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
+import { TIMEOUT_SWIPER } from '../../constants/swiper';
 
 const Banner: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ const Banner: React.FC = () => {
   return (
     <Swiper
       autoplay={{
-        delay: 3000,
+        delay: TIMEOUT_SWIPER,
         disableOnInteraction: false,
       }}
       cssMode

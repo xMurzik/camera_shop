@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import { fetchItem } from '../../store/item-slice/async-item';
 import { Path } from '../../constants/common';
 import RatingStatic from '../../components/rating-static/rating-static';
@@ -16,29 +21,54 @@ const enum InfoItem {
 const ItemPageInfo: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(true);
-  const dataItem = useAppSelector(getDataItem);
-
   const dispatch = useAppDispatch();
 
-  const [statusDescription, setStatusDescription] = useState<InfoItem>(
-    InfoItem.description
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [params, setParams] = useSearchParams();
+  const dataItem = useAppSelector(getDataItem);
 
-  const onClickCharacteristics = () =>
+  const paramDesctiption = params.get('status');
+
+  const [statusDescription, setStatusDescription] = useState<InfoItem>(() => {
+    switch (paramDesctiption) {
+      case null:
+        return InfoItem.description;
+      case InfoItem.description:
+        return InfoItem.description;
+      case InfoItem.characteristics:
+        return InfoItem.characteristics;
+      default:
+        return InfoItem.description;
+    }
+  });
+
+  const onClickCharacteristics = () => {
     setStatusDescription(InfoItem.characteristics);
+    setParams({ status: InfoItem.characteristics }, { replace: true });
+  };
 
-  const onClickDescription = () => setStatusDescription(InfoItem.description);
+  const onClickDescription = () => {
+    setStatusDescription(InfoItem.description);
+    setParams({ status: InfoItem.description }, { replace: true });
+  };
+
+  useEffect(() => {
+    if (!paramDesctiption) {
+      setParams({ status: InfoItem.description }, { replace: true });
+      setStatusDescription(InfoItem.description);
+    }
+  }, [paramDesctiption, setParams]);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchItem(Number(id)))
         .unwrap()
         .catch(() => {
-          navigate(Path.notFound);
+          navigate(`${Path.NotFound}`, { replace: true });
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [dispatch, id, navigate, setIsLoading]);
 
@@ -58,7 +88,7 @@ const ItemPageInfo: React.FC = () => {
         <div className="container">
           <ul className="breadcrumbs__list">
             <li className="breadcrumbs__item">
-              <Link className="breadcrumbs__link" to={Path.catalog}>
+              <Link className="breadcrumbs__link" to={Path.Catalog}>
                 Главная
                 <svg width={5} height={8} aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini" />
@@ -66,7 +96,7 @@ const ItemPageInfo: React.FC = () => {
               </Link>
             </li>
             <li className="breadcrumbs__item">
-              <Link className="breadcrumbs__link" to={Path.catalog}>
+              <Link className="breadcrumbs__link" to={Path.Catalog}>
                 Каталог
                 <svg width={5} height={8} aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini" />

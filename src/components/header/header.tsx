@@ -5,19 +5,19 @@ import { Path } from '../../constants/common';
 const Header: React.FC = () => (
   <header className="header" id="header">
     <div className="container">
-      <a
+      <Link
         className="header__logo"
-        href="index.html"
+        to={Path.Catalog}
         aria-label="Переход на главную"
       >
         <svg width={100} height={36} aria-hidden="true">
           <use xlinkHref="#icon-logo" />
         </svg>
-      </a>
+      </Link>
       <nav className="main-nav header__main-nav">
         <ul className="main-nav__list">
           <li className="main-nav__item">
-            <Link className="main-nav__link" to={Path.catalog}>
+            <Link className="main-nav__link" to={Path.Catalog}>
               Каталог
             </Link>
           </li>
@@ -81,7 +81,7 @@ const Header: React.FC = () => (
           <span className="visually-hidden">Сбросить поиск</span>
         </button>
       </div>
-      <Link className="header__basket-link" to={Path.basket}>
+      <Link className="header__basket-link" to={Path.Basket}>
         <svg width={16} height={16} aria-hidden="true">
           <use xlinkHref="#icon-basket" />
         </svg>

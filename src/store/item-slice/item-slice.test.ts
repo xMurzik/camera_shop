@@ -50,21 +50,21 @@ describe('item slice', () => {
 
   it('fetchItem async', () => {
     mockAxios
-      .onGet(`${MAIN_API_URL + ApiRoute.getAllItems}/${oneItem.id}`)
+      .onGet(`${MAIN_API_URL + ApiRoute.GetAllItems}/${oneItem.id}`)
       .reply(200, items);
 
     mockAxios
       .onGet(
-        `${MAIN_API_URL + ApiRoute.getAllItems}/${oneItem.id}/${
-          ApiRoute.similar
+        `${MAIN_API_URL + ApiRoute.GetAllItems}/${oneItem.id}/${
+          ApiRoute.Similar
         }`
       )
       .reply(200, items);
 
     mockAxios
       .onGet(
-        `${MAIN_API_URL + ApiRoute.getAllItems}/${oneItem.id}/${
-          ApiRoute.reviews
+        `${MAIN_API_URL + ApiRoute.GetAllItems}/${oneItem.id}/${
+          ApiRoute.Reviews
         }`
       )
       .reply(200, comments);

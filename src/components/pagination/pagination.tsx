@@ -1,9 +1,10 @@
 import React from 'react';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../hooks/use-pagination';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
-import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
+import { MAX_ELEMS_ON_ONE_PAGE, Path } from '../../constants/common';
 import s from './pagination.module.scss';
+import { Link } from 'react-router-dom';
 
 const Pagination: React.FC = () => {
   const items = useAppSelector(getAllItems);
@@ -18,7 +19,7 @@ const Pagination: React.FC = () => {
     onClickPrev,
   } = usePagination({ items, maxElems: MAX_ELEMS_ON_ONE_PAGE });
 
-  if (items.length <= 9) {
+  if (items.length <= MAX_ELEMS_ON_ONE_PAGE) {
     return null;
   }
 
@@ -37,14 +38,15 @@ const Pagination: React.FC = () => {
         )}
         {allPaggPages[selectedCurrentPageUrl].map((el) => (
           <li key={el} className="pagination__item">
-            <button
-              className={`${s.buttonPaggination} pagination__link ${
+            <Link
+              className={`pagination__link ${
                 el === Number(urlValue) ? 'pagination__link--active' : ''
               }`}
+              to={`${Path.Catalog}?page=${el}`}
               onClick={onClickNumberPagination(el)}
             >
               {el}
-            </button>
+            </Link>
           </li>
         ))}
 

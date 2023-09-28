@@ -12,7 +12,7 @@ export const fetchItems = createAsyncThunk<
   { dispatch: AppDispatch; state: State }
 >('items/fetchItems', async (_, { dispatch, getState }) => {
   const { data } = await axios.get<Array<IItem>>(
-    `${MAIN_API_URL}${ApiRoute.getAllItems}`
+    `${MAIN_API_URL}${ApiRoute.GetAllItems}`
   );
 
   if (!getState().items.filtredItems.length) {

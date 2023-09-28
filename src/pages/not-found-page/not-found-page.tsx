@@ -6,7 +6,7 @@ import { Path } from '../../constants/common';
 const NotFoundPage: React.FC = () => (
   <div className={s.mainWrapper}>
     <h1 className={s.titleH1}>Page not found</h1>
-    <Link className={s.linkToCatalog} to={Path.catalog}>
+    <Link className={s.linkToCatalog} to={Path.Catalog}>
       Back to catalog
     </Link>
   </div>

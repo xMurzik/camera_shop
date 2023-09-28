@@ -37,7 +37,7 @@ const ModalSuccessBasket: React.FC = () => {
             </button>
             <Link
               onClick={onClickOverlay}
-              to={`${Path.basket}`}
+              to={`${Path.Basket}`}
               className="btn btn--purple modal__btn modal__btn--fit-width"
             >
               Перейти в корзину

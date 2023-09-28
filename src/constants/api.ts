@@ -1,8 +1,8 @@
 export const MAIN_API_URL = 'https://camera-shop.accelerator.pages.academy/';
 
 export enum ApiRoute {
-  getAllItems = 'cameras',
-  promo = 'promo',
-  similar = 'similar',
-  reviews = 'reviews',
+  GetAllItems = 'cameras',
+  Promo = 'promo',
+  Similar = 'similar',
+  Reviews = 'reviews',
 }

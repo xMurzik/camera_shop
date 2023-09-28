@@ -45,7 +45,7 @@ describe('items slice', () => {
   });
 
   it('fetchItems and param page not good', () => {
-    mockAxios.onGet(`${MAIN_API_URL}${ApiRoute.getAllItems}`).reply(200, items);
+    mockAxios.onGet(`${MAIN_API_URL}${ApiRoute.GetAllItems}`).reply(200, items);
 
     const toStateFiltredItems: Array<IItem> = items.slice(0, 9);
 
@@ -58,7 +58,7 @@ describe('items slice', () => {
 
   it('fetchItems and param page is good', () => {
     const pageParam = 5;
-    mockAxios.onGet(`${MAIN_API_URL}${ApiRoute.getAllItems}`).reply(200, items);
+    mockAxios.onGet(`${MAIN_API_URL}${ApiRoute.GetAllItems}`).reply(200, items);
     const indexMaxItems = Number(pageParam) * 9;
     const indexStartItems = indexMaxItems - 9;
     const filtredItemsPagg = [...items].slice(indexStartItems, indexMaxItems);

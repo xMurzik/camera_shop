@@ -7,19 +7,19 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { getComments } from '../../store/item-slice/item-selectorts';
 import { MAX_PAGE_COMMENTS } from '../../constants/comments';
 import { chunkArray } from '../../utils/pagination';
-import { TIMEOUT } from '../../constants/common';
+import { PAGE_NUMBER, TIMEOUT } from '../../constants/common';
 
 const ReviewList: React.FC = () => {
   const { id } = useParams();
   const data = useAppSelector(getComments);
-  const [commentsPage, setCommentsPage] = useState(1);
+  const [commentsPage, setCommentsPage] = useState(PAGE_NUMBER);
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
   const [isShowSuccessModal, setisShowSuccessModal] = useState(false);
   const onClickMoreComments = () => setCommentsPage((prev) => prev + 1);
   const chunkedComments = useMemo(() => chunkArray(data, 3), [data]);
 
   useEffect(() => {
-    setCommentsPage(1);
+    setCommentsPage(PAGE_NUMBER);
 
     const onClickEsc = (evt: KeyboardEvent) => {
       if (evt.code === 'Escape') {
@@ -28,7 +28,7 @@ const ReviewList: React.FC = () => {
 
         setTimeout(() => {
           (document.getElementById('form_review') as HTMLFormElement)?.reset();
-        }, 300);
+        }, TIMEOUT);
 
         document.body.style.overflow = 'unset';
       }

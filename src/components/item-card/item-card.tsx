@@ -69,7 +69,7 @@ const ItemCard: React.FC<IItem> = (props) => {
         <Link
           data-testid="button_more_info"
           className="btn btn--transparent"
-          to={`${Path.catalog}${id}`}
+          to={`${Path.Catalog}${id}`}
         >
           Подробнее
         </Link>
