@@ -41,21 +41,12 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
   });
 
   useEffect(() => {
-    if (checkUrlParams(urlValue, maxPageCount) && items.length > 0) {
+    if (checkUrlParams(urlValue, maxPageCount)) {
       setParams({ page: '1' });
       setSelectedCurrentPageUrl(0);
       dispatch(onClickPagination(0));
     }
-  }, [
-    allPaggPages,
-    dispatch,
-    items.length,
-    maxPageCount,
-    params,
-    selectedCurrentPageUrl,
-    setParams,
-    urlValue,
-  ]);
+  }, [dispatch, maxPageCount, setParams, urlValue]);
 
   const onClickNumberPagination = useCallback(
     (value: number) => () => {
