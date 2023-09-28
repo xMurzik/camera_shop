@@ -12,6 +12,7 @@ import RatingStatic from '../../components/rating-static/rating-static';
 import classNames from 'classnames';
 import { getDataItem } from '../../store/item-slice/item-selectorts';
 import { onClickBuy } from '../../store/modal-slice/modal-slice';
+import { formatPrice } from '../../utils/format';
 
 const enum InfoItem {
   description = 'description',
@@ -141,7 +142,7 @@ const ItemPageInfo: React.FC = () => {
               </div>
               <p className="product__price">
                 <span className="visually-hidden">Цена:</span>
-                {dataItem.price} ₽
+                {formatPrice(dataItem.price)} ₽
               </p>
               <button
                 onClick={onClickButtonBuy}

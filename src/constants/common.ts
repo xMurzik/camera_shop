@@ -7,6 +7,6 @@ export enum Path {
 
 export const MAX_ELEMS_ON_ONE_PAGE = 9;
 
-export const TIMEOUT = 500;
+export const TIMEOUT = 300;
 
 export const PAGE_NUMBER = 1;
