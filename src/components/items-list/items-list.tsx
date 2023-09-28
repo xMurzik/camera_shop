@@ -1,14 +1,22 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
-import { getFiltredItems } from '../../store/items-slice/items-selectors';
+import { getAllItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
+import { useSearchParams } from 'react-router-dom';
+import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 
 const ItemsList: React.FC = () => {
-  const items = useAppSelector(getFiltredItems);
+  const [params] = useSearchParams();
+  const items = useAppSelector(getAllItems);
+
+  const pageParam = params.get('page');
+  const indexMaxItems = Number(pageParam) * MAX_ELEMS_ON_ONE_PAGE;
+  const indexStartItems = indexMaxItems - MAX_ELEMS_ON_ONE_PAGE;
+  const filtredItems = items.slice(indexStartItems, indexMaxItems);
 
   return (
     <div className="cards catalog__cards">
-      {items.map((el) => (
+      {filtredItems.map((el) => (
         <ItemCard key={el.id} {...el} />
       ))}
     </div>

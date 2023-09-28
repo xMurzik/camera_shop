@@ -1,8 +1,7 @@
-import { useMemo, useEffect, useState, useCallback } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { checkUrlParams, chunkArray } from '../utils/pagination';
 import { useAppDispatch } from './redux-hooks';
-import { onClickPagination } from '../store/items-slice/items-slice';
 import { IItem } from '../types/items';
 
 interface IUsePaginationParams {
@@ -44,16 +43,8 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     if (checkUrlParams(urlValue, maxPageCount)) {
       setParams({ page: '1' });
       setSelectedCurrentPageUrl(0);
-      dispatch(onClickPagination(0));
     }
   }, [dispatch, maxPageCount, setParams, urlValue]);
-
-  const onClickNumberPagination = useCallback(
-    (value: number) => () => {
-      dispatch(onClickPagination(value));
-    },
-    [dispatch]
-  );
 
   const onClickPrev = () => {
     const currentPage = allPaggPages[selectedCurrentPageUrl];
@@ -67,12 +58,10 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
         page: numberOfNewPage.toString(),
       });
       setSelectedCurrentPageUrl((prev) => prev - 1);
-      dispatch(onClickPagination(numberOfNewPage));
     } else {
       setParams({
         page: newUrlValue.toString(),
       });
-      dispatch(onClickPagination(newUrlValue));
     }
   };
 
@@ -85,10 +74,8 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
       const numberOfNewPage = newCurrentPage[0];
       setParams({ page: numberOfNewPage.toString() });
       setSelectedCurrentPageUrl((prev) => prev + 1);
-      dispatch(onClickPagination(numberOfNewPage));
     } else {
       setParams({ page: newUrlValue.toString() });
-      dispatch(onClickPagination(newUrlValue));
     }
   };
 
@@ -100,7 +87,6 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     allPaggPages,
     onClickNext,
     onClickPrev,
-    onClickNumberPagination,
     isFirstPage,
     isLastPage,
     selectedCurrentPageUrl,

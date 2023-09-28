@@ -15,7 +15,6 @@ const Pagination: React.FC = () => {
     isFirstPage,
     isLastPage,
     onClickNext,
-    onClickNumberPagination,
     onClickPrev,
   } = usePagination({ items, maxElems: MAX_ELEMS_ON_ONE_PAGE });
 
@@ -43,7 +42,6 @@ const Pagination: React.FC = () => {
                 el === Number(urlValue) ? 'pagination__link--active' : ''
               }`}
               to={`${Path.Catalog}?page=${el}`}
-              onClick={onClickNumberPagination(el)}
             >
               {el}
             </Link>

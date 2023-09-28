@@ -1,18 +1,15 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
 import { fetchItems } from './async-items';
-import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 
 interface IItemsSlice {
   items: Array<IItem>;
-  filtredItems: Array<IItem>;
   isLoading: boolean;
   isError: boolean;
 }
 
 const initialState: IItemsSlice = {
   items: [],
-  filtredItems: [],
   isLoading: true,
   isError: false,
 };
@@ -20,21 +17,7 @@ const initialState: IItemsSlice = {
 const itemsSlice = createSlice({
   name: '@items',
   initialState,
-  reducers: {
-    setFiltredItems: (state, action: PayloadAction<Array<IItem>>) => {
-      state.filtredItems = action.payload;
-    },
-    onClickPagination: (state, action: PayloadAction<number>) => {
-      if (action.payload === 0) {
-        state.filtredItems = state.items.slice(0, MAX_ELEMS_ON_ONE_PAGE);
-        return;
-      }
-
-      const indexMaxItems = action.payload * MAX_ELEMS_ON_ONE_PAGE;
-      const indexStartItems = indexMaxItems - MAX_ELEMS_ON_ONE_PAGE;
-      state.filtredItems = state.items.slice(indexStartItems, indexMaxItems);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchItems.pending, (state) => {
@@ -51,7 +34,5 @@ const itemsSlice = createSlice({
       });
   },
 });
-
-export const { setFiltredItems, onClickPagination } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
