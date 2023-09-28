@@ -5,6 +5,7 @@ import { Path } from '../../constants/common';
 import RatingStatic from '../rating-static/rating-static';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { onClickBuy } from '../../store/modal-slice/modal-slice';
+import { formatPrice } from '../../utils/format';
 
 const CarouselItem: React.FC<IItem> = (props) => {
   const {
@@ -53,7 +54,7 @@ const CarouselItem: React.FC<IItem> = (props) => {
         <p className="product-card__title">{name}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>
-          {price} ₽
+          {formatPrice(price)} ₽
         </p>
       </div>
       <div className="product-card__buttons">

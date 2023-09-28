@@ -17,6 +17,11 @@
     cursor: pointer;
   }
 
+  &:active {
+    color: #7575e2;
+    background-color: #a2a2ff;
+  }
+
   &:disabled {
     opacity: 0.6;
     cursor: unset;
@@ -40,6 +45,11 @@
   &:hover {
     background-color: #cbcbd499;
     cursor: pointer;
+  }
+
+  &:active {
+    color: #7575e2;
+    background-color: #a2a2ff;
   }
 
   &:disabled {
