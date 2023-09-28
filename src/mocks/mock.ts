@@ -78,7 +78,6 @@ export const createFakeStore = (): State => ({
   },
   items: {
     items: createItems(),
-    filtredItems: createItems(),
     isLoading: false,
     isError: false,
   },

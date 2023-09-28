@@ -11,7 +11,6 @@ describe('items list', () => {
     const { withStoreComponent } = withStore(<ItemsList />, {
       items: {
         items: [...items],
-        filtredItems: [...items],
         isError: false,
         isLoading: false,
       },
