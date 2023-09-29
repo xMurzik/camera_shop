@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import RateBar from '../rate-bar/rate-bar';
+import UseFocusModal from '../../hooks/use-focus-modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IReviewComment } from '../../types/review';
 import { useAppDispatch } from '../../hooks/redux-hooks';
@@ -21,6 +22,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
 }) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const refModalDiv = UseFocusModal();
 
   const {
     register,
@@ -67,39 +69,6 @@ const ModalReview: React.FC<IModalReviewProps> = ({
     document.body.style.overflow = 'unset';
     setTimeout(() => reset(), TIMEOUT);
   };
-
-  const refModalDiv = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        const rootElement = refModalDiv.current;
-
-        if (rootElement) {
-          const focusableElements = rootElement.querySelectorAll(
-            'input, button, textarea, select'
-          );
-
-          const firstElement = focusableElements[0];
-          const lastElement = focusableElements[focusableElements.length - 1];
-
-          if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault();
-            (lastElement as HTMLElement).focus();
-          } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault();
-            (firstElement as HTMLElement).focus();
-          }
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   return (
     <div ref={refModalDiv} className={`modal ${isActive ? 'is-active' : ''}`}>

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Path } from '../../constants/common';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getIsShowModalSuccesBasket } from '../../store/modal-slice/modal-selectorts';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
+import UseFocusModal from '../../hooks/use-focus-modal';
 
 const ModalSuccessBasket: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,38 +14,7 @@ const ModalSuccessBasket: React.FC = () => {
     dispatch(onClickOverlayOrExit());
   };
 
-  const refModalDiv = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        const rootElement = refModalDiv.current;
-
-        if (rootElement) {
-          const focusableElements = rootElement.querySelectorAll(
-            'input, button, textarea, select'
-          );
-
-          const firstElement = focusableElements[0];
-          const lastElement = focusableElements[focusableElements.length - 1];
-
-          if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault();
-            (lastElement as HTMLElement).focus();
-          } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault();
-            (firstElement as HTMLElement).focus();
-          }
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  const refModalDiv = UseFocusModal();
 
   return (
     <div className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}>

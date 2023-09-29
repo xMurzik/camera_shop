@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   getCurrentActiveBasketItem,
@@ -9,6 +9,7 @@ import {
   onClickOverlayOrExit,
   onClickSuccessBuy,
 } from '../../store/modal-slice/modal-slice';
+import UseFocusModal from '../../hooks/use-focus-modal';
 
 interface IModalItemProps {
   isDelete: boolean;
@@ -32,38 +33,7 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
     }
   };
 
-  const refModalDiv = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        const rootElement = refModalDiv.current;
-
-        if (rootElement) {
-          const focusableElements = rootElement.querySelectorAll(
-            'input, button, textarea, select'
-          );
-
-          const firstElement = focusableElements[0];
-          const lastElement = focusableElements[focusableElements.length - 1];
-
-          if (e.shiftKey && document.activeElement === firstElement) {
-            e.preventDefault();
-            (lastElement as HTMLElement).focus();
-          } else if (!e.shiftKey && document.activeElement === lastElement) {
-            e.preventDefault();
-            (firstElement as HTMLElement).focus();
-          }
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  const refModalDiv = UseFocusModal();
 
   if (!data) {
     return null;
