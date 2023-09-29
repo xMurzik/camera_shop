@@ -64,11 +64,7 @@ const CatalogPage: React.FC = () => (
                       <legend className="title title--h5">Категория</legend>
                       <div className="custom-checkbox catalog-filter__item">
                         <label>
-                          <input
-                            type="checkbox"
-                            name="photocamera"
-                            defaultChecked
-                          />
+                          <input type="checkbox" name="photocamera" />
                           <span className="custom-checkbox__icon" />
                           <span className="custom-checkbox__label">
                             Фотокамера
@@ -89,11 +85,7 @@ const CatalogPage: React.FC = () => (
                       <legend className="title title--h5">Тип камеры</legend>
                       <div className="custom-checkbox catalog-filter__item">
                         <label>
-                          <input
-                            type="checkbox"
-                            name="digital"
-                            defaultChecked
-                          />
+                          <input type="checkbox" name="digital" />
                           <span className="custom-checkbox__icon" />
                           <span className="custom-checkbox__label">
                             Цифровая
@@ -120,12 +112,7 @@ const CatalogPage: React.FC = () => (
                       </div>
                       <div className="custom-checkbox catalog-filter__item">
                         <label>
-                          <input
-                            type="checkbox"
-                            name="collection"
-                            defaultChecked
-                            disabled
-                          />
+                          <input type="checkbox" name="collection" disabled />
                           <span className="custom-checkbox__icon" />
                           <span className="custom-checkbox__label">
                             Коллекционная
@@ -137,7 +124,7 @@ const CatalogPage: React.FC = () => (
                       <legend className="title title--h5">Уровень</legend>
                       <div className="custom-checkbox catalog-filter__item">
                         <label>
-                          <input type="checkbox" name="zero" defaultChecked />
+                          <input type="checkbox" name="zero" />
                           <span className="custom-checkbox__icon" />
                           <span className="custom-checkbox__label">
                             Нулевой
@@ -179,12 +166,7 @@ const CatalogPage: React.FC = () => (
                       <p className="title title--h5">Сортировать:</p>
                       <div className="catalog-sort__type">
                         <div className="catalog-sort__btn-text">
-                          <input
-                            type="radio"
-                            id="sortPrice"
-                            name="sort"
-                            defaultChecked
-                          />
+                          <input type="radio" id="sortPrice" name="sort" />
                           <label htmlFor="sortPrice">по цене</label>
                         </div>
                         <div className="catalog-sort__btn-text">
@@ -198,7 +180,6 @@ const CatalogPage: React.FC = () => (
                             type="radio"
                             id="up"
                             name="sort-icon"
-                            defaultChecked
                             aria-label="По возрастанию"
                           />
                           <label htmlFor="up">

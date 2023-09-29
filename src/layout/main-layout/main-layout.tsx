@@ -5,14 +5,11 @@ import Footer from '../../components/footer/footer';
 import { createPortal } from 'react-dom';
 import ModalItem from '../../components/modal-item/modal-item';
 import ModalSuccessBasket from '../../components/modal-success-basket/modal-success-basket';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
-import { getStatusLoadingItems } from '../../store/items-slice/items-selectors';
 
 const MainLayout: React.FC = () => {
   const dispatch = useAppDispatch();
-
-  const isLoading = useAppSelector(getStatusLoadingItems);
 
   useEffect(() => {
     const onClickEsc = (evt: KeyboardEvent) => {
@@ -26,10 +23,6 @@ const MainLayout: React.FC = () => {
       document.removeEventListener('keydown', onClickEsc);
     };
   }, [dispatch]);
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <div className="wrapper">

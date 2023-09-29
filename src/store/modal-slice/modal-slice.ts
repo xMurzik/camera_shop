@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
-import { TIMEOUT } from '../../constants/common';
+import { TIMEOUT, TIMEOUT_SUCCESS } from '../../constants/common';
 
 interface ICatalogModalSlice {
   currentActiveCatalogItem: IItem | null;
@@ -44,8 +44,12 @@ const modalSlice = createSlice({
       state.isShowModalSuccesBasket = true;
 
       setTimeout(() => {
-        document.getElementById('cont-to-buy')?.focus();
-      }, TIMEOUT);
+        if (document.activeElement !== document.querySelector('#cont-to-buy')) {
+          (
+            document.querySelector('#cont-to-buy') as HTMLButtonElement
+          )?.focus();
+        }
+      }, TIMEOUT_SUCCESS);
     },
   },
 });

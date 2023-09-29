@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Path } from '../../constants/common';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
@@ -13,12 +13,46 @@ const ModalSuccessBasket: React.FC = () => {
     dispatch(onClickOverlayOrExit());
   };
 
+  const refModalDiv = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        const rootElement = refModalDiv.current;
+
+        if (rootElement) {
+          const focusableElements = rootElement.querySelectorAll(
+            'input, button, textarea, select'
+          );
+
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+
+          if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            (lastElement as HTMLElement).focus();
+          } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            (firstElement as HTMLElement).focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <div className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}>
       <div className="modal__wrapper">
         <div onClick={onClickOverlay} className="modal__overlay"></div>
-        <div className="modal__content">
+        <div ref={refModalDiv} className="modal__content">
           <p className="title title--h4">Товар успешно добавлен в корзину</p>
+
           <svg
             className="modal__icon"
             width="86"
@@ -31,7 +65,7 @@ const ModalSuccessBasket: React.FC = () => {
             <button
               onClick={onClickOverlay}
               className="btn btn--transparent modal__btn"
-              id={'cont-to-buy'}
+              id="cont-to-buy"
             >
               Продолжить покупки
             </button>
