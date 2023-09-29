@@ -140,7 +140,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                       style={{ border: errors.name ? '2px solid red' : '' }}
                       {...register('name', {
                         required: true,
-                        pattern: /[a-z0-9а-я]{10,}/gi,
+                        pattern: /[a-z0-9а-я]{2,160}/gi,
                       })}
                     />
                   </label>
@@ -167,7 +167,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                       placeholder="Основные преимущества товара"
                       {...register('advantage', {
                         required: true,
-                        pattern: /[a-z0-9а-я]{10,140}/gi,
+                        pattern: /[a-z0-9а-я]{2,160}/gi,
                       })}
                     />
                   </label>
@@ -193,7 +193,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                       placeholder="Главные недостатки товара"
                       {...register('disadvantage', {
                         required: true,
-                        pattern: /[a-z0-9а-я]{10,140}/gi,
+                        pattern: /[a-z0-9а-я]{2,160}/gi,
                       })}
                     />
                   </label>
@@ -217,7 +217,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
                       }}
                       {...register('comment', {
                         required: true,
-                        pattern: /[a-z0-9а-я]{10,140}/gi,
+                        pattern: /[a-z0-9а-я]{2,160}/gi,
                       })}
                       placeholder="Поделитесь своим опытом покупки"
                     />
