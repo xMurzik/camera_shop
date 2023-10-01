@@ -3,18 +3,14 @@ import usePagination from '../../hooks/use-pagination';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import { MAX_ELEMS_ON_ONE_PAGE, Path } from '../../constants/common';
-// import s from './pagination.module.scss';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const Pagination: React.FC = () => {
   const items = useAppSelector(getAllItems);
-  const {
-    urlValue,
-    allPaggPages,
-    selectedCurrentPageUrl,
-    isFirstPage,
-    isLastPage,
-  } = usePagination({ items, maxElems: MAX_ELEMS_ON_ONE_PAGE });
+  const { urlValue, pageToRender, isFirstPage, isLastPage } = usePagination({
+    items,
+    maxElems: MAX_ELEMS_ON_ONE_PAGE,
+  });
 
   const [params] = useSearchParams();
   const pageParam = params.get('page');
@@ -36,7 +32,7 @@ const Pagination: React.FC = () => {
             </Link>
           </li>
         )}
-        {allPaggPages[selectedCurrentPageUrl].map((el) => (
+        {pageToRender.map((el) => (
           <li key={el} className="pagination__item">
             <Link
               className={`pagination__link ${

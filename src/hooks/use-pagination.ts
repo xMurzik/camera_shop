@@ -55,10 +55,9 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
 
   return {
     urlValue,
-    allPaggPages,
+    pageToRender: allPaggPages[selectedCurrentPageUrl],
     isFirstPage,
     isLastPage,
-    selectedCurrentPageUrl,
   };
 };
 
