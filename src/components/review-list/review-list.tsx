@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { getComments } from '../../store/item-slice/item-selectorts';
 import { MAX_PAGE_COMMENTS } from '../../constants/comments';
 import { chunkArray } from '../../utils/pagination';
-import { PAGE_NUMBER, TIMEOUT } from '../../constants/common';
+import { PAGE_COUNT, PAGE_NUMBER, TIMEOUT } from '../../constants/common';
 
 const ReviewList: React.FC = () => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const ReviewList: React.FC = () => {
   const [isShowReviewModal, setIsShowReviewModal] = useState(false);
   const [isShowSuccessModal, setisShowSuccessModal] = useState(false);
   const onClickMoreComments = () => setCommentsPage((prev) => prev + 1);
-  const chunkedComments = useMemo(() => chunkArray(data, 3), [data]);
+  const chunkedComments = useMemo(() => chunkArray(data, PAGE_COUNT), [data]);
 
   useEffect(() => {
     setCommentsPage(PAGE_NUMBER);

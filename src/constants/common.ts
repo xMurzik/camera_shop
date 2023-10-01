@@ -12,3 +12,5 @@ export const TIMEOUT = 300;
 export const TIMEOUT_SUCCESS = 800;
 
 export const PAGE_NUMBER = 1;
+
+export const PAGE_COUNT = 3;
