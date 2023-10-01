@@ -3,8 +3,8 @@ import usePagination from '../../hooks/use-pagination';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import { MAX_ELEMS_ON_ONE_PAGE, Path } from '../../constants/common';
-import s from './pagination.module.scss';
-import { Link } from 'react-router-dom';
+// import s from './pagination.module.scss';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Pagination: React.FC = () => {
   const items = useAppSelector(getAllItems);
@@ -14,9 +14,10 @@ const Pagination: React.FC = () => {
     selectedCurrentPageUrl,
     isFirstPage,
     isLastPage,
-    onClickNext,
-    onClickPrev,
   } = usePagination({ items, maxElems: MAX_ELEMS_ON_ONE_PAGE });
+
+  const [params] = useSearchParams();
+  const pageParam = params.get('page');
 
   if (items.length <= MAX_ELEMS_ON_ONE_PAGE) {
     return null;
@@ -27,12 +28,12 @@ const Pagination: React.FC = () => {
       <ul className="pagination__list">
         {isFirstPage && (
           <li className="pagination__item">
-            <button
-              onClick={onClickPrev}
-              className={`${s.buttonPaggination} pagination__link pagination__link--text`}
+            <Link
+              to={`${Path.Catalog}?page=${Number(pageParam) - 1}`}
+              className="pagination__link pagination__link--text`"
             >
               Назад
-            </button>
+            </Link>
           </li>
         )}
         {allPaggPages[selectedCurrentPageUrl].map((el) => (
@@ -50,12 +51,12 @@ const Pagination: React.FC = () => {
 
         {isLastPage && (
           <li className="pagination__item">
-            <button
-              onClick={onClickNext}
-              className={`${s.buttonPaggination} pagination__link pagination__link--text`}
+            <Link
+              to={`${Path.Catalog}?page=${Number(pageParam) + 1}`}
+              className="pagination__link pagination__link--text"
             >
               Далее
-            </button>
+            </Link>
           </li>
         )}
       </ul>

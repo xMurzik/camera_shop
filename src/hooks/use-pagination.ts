@@ -43,41 +43,12 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     if (checkUrlParams(urlValue, maxPageCount)) {
       setParams({ page: '1' });
       setSelectedCurrentPageUrl(0);
-    }
-  }, [dispatch, maxPageCount, setParams, urlValue]);
-
-  const onClickPrev = () => {
-    const currentPage = allPaggPages[selectedCurrentPageUrl];
-    const newUrlValue = Number(urlValue) - 1;
-    const isPageLast = currentPage.findIndex((el) => el === newUrlValue);
-
-    if (isPageLast === -1) {
-      const newCurrentPage = [...allPaggPages[selectedCurrentPageUrl - 1]];
-      const numberOfNewPage = newCurrentPage[newCurrentPage.length - 1];
-      setParams({
-        page: numberOfNewPage.toString(),
-      });
-      setSelectedCurrentPageUrl((prev) => prev - 1);
     } else {
-      setParams({
-        page: newUrlValue.toString(),
-      });
+      setSelectedCurrentPageUrl(() =>
+        allPaggPages.findIndex((el) => el.includes(Number(urlValue)))
+      );
     }
-  };
-
-  const onClickNext = () => {
-    const currentPage = allPaggPages[selectedCurrentPageUrl];
-    const newUrlValue = Number(urlValue) + 1;
-    const isPageLast = currentPage.findIndex((el) => el === newUrlValue);
-    if (isPageLast === -1) {
-      const newCurrentPage = [...allPaggPages[selectedCurrentPageUrl + 1]];
-      const numberOfNewPage = newCurrentPage[0];
-      setParams({ page: numberOfNewPage.toString() });
-      setSelectedCurrentPageUrl((prev) => prev + 1);
-    } else {
-      setParams({ page: newUrlValue.toString() });
-    }
-  };
+  }, [allPaggPages, dispatch, maxPageCount, setParams, urlValue]);
 
   const isFirstPage = !(selectedCurrentPageUrl === 0);
   const isLastPage = !(selectedCurrentPageUrl === allPaggPages.length - 1);
@@ -85,8 +56,6 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
   return {
     urlValue,
     allPaggPages,
-    onClickNext,
-    onClickPrev,
     isFirstPage,
     isLastPage,
     selectedCurrentPageUrl,
