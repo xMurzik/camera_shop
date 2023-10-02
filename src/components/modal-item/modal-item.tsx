@@ -10,6 +10,7 @@ import {
   onClickSuccessBuy,
 } from '../../store/modal-slice/modal-slice';
 import UseFocusModal from '../../hooks/use-focus-modal';
+import { formatPrice } from '../../utils/format';
 
 interface IModalItemProps {
   isDelete: boolean;
@@ -78,7 +79,7 @@ const ModalItem: React.FC<IModalItemProps> = (props) => {
               {!isDelete && (
                 <p className="basket-item__price">
                   <span className="visually-hidden">Цена:</span>
-                  {data.price} ₽
+                  {formatPrice(data.price)} ₽
                 </p>
               )}
             </div>

@@ -1,12 +1,13 @@
 .swiper-pagination-bullet {
-  background: rgb(255, 255, 255);
-  opacity: 0.9 !important;
+  background: #f4f4fc;
+  opacity: 1 !important;
   width: 16px;
   height: 16px;
 }
 
 .swiper-pagination-bullet-active {
-  background: rgb(214, 124, 214);
+  background: #7575e2;
+  opacity: 1 !important;
   width: 16px;
   height: 16px;
 }
