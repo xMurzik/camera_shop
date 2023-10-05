@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { checkUrlParams, chunkArray } from '../utils/pagination';
 import { useAppDispatch } from './redux-hooks';
@@ -50,10 +50,33 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     }
   }, [allPaggPages, dispatch, maxPageCount, setParams, urlValue]);
 
+  const onClickPrev = () => {
+    const newPage = Number(urlValue) - 1;
+    params.set('page', newPage.toString());
+    setParams(params);
+  };
+
+  const onClickNext = () => {
+    const newPage = Number(urlValue) + 1;
+    params.set('page', newPage.toString());
+    setParams(params);
+  };
+
+  const onClickNumber = useCallback(
+    (page: number) => () => {
+      params.set('page', page.toString());
+      setParams(params);
+    },
+    [params, setParams]
+  );
+
   const isFirstPage = !(selectedCurrentPageUrl === 0);
   const isLastPage = !(selectedCurrentPageUrl === allPaggPages.length - 1);
 
   return {
+    onClickNumber,
+    onClickPrev,
+    onClickNext,
     urlValue,
     pageToRender: allPaggPages[selectedCurrentPageUrl],
     isFirstPage,

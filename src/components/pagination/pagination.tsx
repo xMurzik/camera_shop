@@ -1,20 +1,25 @@
 import React from 'react';
 import usePagination from '../../hooks/use-pagination';
-import { Link, useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
-import { MAX_ELEMS_ON_ONE_PAGE, Path } from '../../constants/common';
+import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
+import s from './pagintation.module.scss';
 
 const Pagination: React.FC = () => {
   const items = useAppSelector(getAllItems);
 
-  const { urlValue, pageToRender, isFirstPage, isLastPage } = usePagination({
+  const {
+    urlValue,
+    pageToRender,
+    isFirstPage,
+    isLastPage,
+    onClickNext,
+    onClickPrev,
+    onClickNumber,
+  } = usePagination({
     items,
     maxElems: MAX_ELEMS_ON_ONE_PAGE,
   });
-
-  const [params] = useSearchParams();
-  const pageParam = params.get('page');
 
   if (items.length <= MAX_ELEMS_ON_ONE_PAGE) {
     return null;
@@ -25,34 +30,34 @@ const Pagination: React.FC = () => {
       <ul className="pagination__list">
         {isFirstPage && (
           <li className="pagination__item">
-            <Link
-              to={`${Path.Catalog}?page=${Number(pageParam) - 1}`}
-              className="pagination__link pagination__link--text`"
+            <button
+              onClick={onClickPrev}
+              className={`${s['button-prev-next']} pagination__link pagination__link--text`}
             >
               Назад
-            </Link>
+            </button>
           </li>
         )}
         {pageToRender.map((el) => (
           <li key={el} className="pagination__item">
-            <Link
-              className={`pagination__link ${
+            <button
+              onClick={onClickNumber(el)}
+              className={`pagination__link ${s['button-number-paggination']} ${
                 el === Number(urlValue) ? 'pagination__link--active' : ''
               }`}
-              to={`${Path.Catalog}?page=${el}`}
             >
               {el}
-            </Link>
+            </button>
           </li>
         ))}
         {isLastPage && (
           <li className="pagination__item">
-            <Link
-              to={`${Path.Catalog}?page=${Number(pageParam) + 1}`}
-              className="pagination__link pagination__link--text"
+            <button
+              onClick={onClickNext}
+              className={`${s['button-prev-next']} pagination__link pagination__link--text`}
             >
               Далее
-            </Link>
+            </button>
           </li>
         )}
       </ul>

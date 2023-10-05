@@ -40,10 +40,10 @@ export const filterByParams = (
   if (Param.sortType in params && !(Param.sortCount in params)) {
     switch (params.sortType) {
       case Sort.Popular: {
-        return copyItems.sort((a, b) => a.rating - b.rating);
+        return copyItems.sort((a, b) => b.rating - a.rating);
       }
       case Sort.Price: {
-        return copyItems.sort((a, b) => a.price - b.price);
+        return copyItems.sort((a, b) => b.price - a.price);
       }
     }
   }
