@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { MIN_COUNT_VALUE_INPUT } from '../../constants/search-form';
+import useKeyPress from '../../hooks/use-key-press';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import classNames from 'classnames';
 import { Path } from '../../constants/common';
-import useKeyPress from '../../hooks/use-key-press';
-import { MIN_COUNT_VALUE_INPUT } from '../../constants/search-form';
+import s from './search-form.module.scss';
 
 const SearchForm: React.FC = () => {
   const navigate = useNavigate();
@@ -76,8 +77,10 @@ const SearchForm: React.FC = () => {
   const onKeyDownUl = (evt: React.KeyboardEvent<HTMLUListElement>) => {
     if (evt.key === 'Enter') {
       const id = document.activeElement?.getAttribute('data-id');
-      navigate(`${Path.Catalog}${id || 0}`);
-      onResetInput();
+      if (id) {
+        navigate(`${Path.Catalog}${id}`);
+        onResetInput();
+      }
     }
   };
 
@@ -109,7 +112,7 @@ const SearchForm: React.FC = () => {
         <ul
           onKeyDown={onKeyDownUl}
           ref={refUl}
-          className="form-search__select-list"
+          className={`${s['ul-list']} form-search__select-list`}
         >
           {searchindItems}
         </ul>
