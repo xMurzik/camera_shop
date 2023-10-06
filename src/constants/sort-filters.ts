@@ -9,25 +9,31 @@ export enum SortCount {
 }
 
 export enum Param {
-  sortType = 'sortType',
-  sortCount = 'sortCount',
-  page = 'page',
+  SortType = 'sortType',
+  SortCountVal = 'sortCount',
+  Page = 'page',
 }
 
 export enum FilterParam {
-  category = 'category',
-  level = 'level',
-  type = 'type',
+  Category = 'category',
+  Level = 'level',
+  Type = 'type',
 }
 
 export enum CameraCategory {
-  photocamera = 'photocamera',
-  videocamera = 'videocamera',
+  Photocamera = 'Фотоаппарат',
+  Videocamera = 'Видеокамера',
 }
 
 export enum TypeValue {
-  digital = 'Цифровая',
-  film = 'Плёночная',
-  snapshot = 'Моментальная',
-  collection = 'Коллекционная',
+  Digital = 'Цифровая',
+  Film = 'Плёночная',
+  Snapshot = 'Моментальная',
+  Collection = 'Коллекционная',
+}
+
+export enum LevelValue {
+  zero = 'Нулевой',
+  NonProf = 'Любительский',
+  Pro = 'Профессиональный',
 }

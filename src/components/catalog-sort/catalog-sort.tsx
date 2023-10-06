@@ -6,31 +6,31 @@ const CatalogSort: React.FC = () => {
   const [params, setParam] = useSearchParams();
 
   useEffect(() => {
-    if (params.get(Param.sortType) && !params.get(Param.sortCount)) {
-      setParam({ [Param.sortCount]: SortCount.Down });
+    if (params.get(Param.SortType) && !params.get(Param.SortCountVal)) {
+      setParam({ [Param.SortCountVal]: SortCount.Down });
     }
 
-    if (!params.get(Param.sortType) && params.get(Param.sortCount)) {
-      params.set(Param.sortType, Sort.Price);
-      setParam({ [Param.sortType]: Sort.Price });
+    if (!params.get(Param.SortType) && params.get(Param.SortCountVal)) {
+      params.set(Param.SortType, Sort.Price);
+      setParam({ [Param.SortType]: Sort.Price });
     }
   }, [params, setParam]);
 
   const setTypeSort = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (!params.get(Param.sortCount)) {
-      params.set(Param.sortCount, SortCount.Down);
+    if (!params.get(Param.SortCountVal)) {
+      params.set(Param.SortCountVal, SortCount.Down);
     }
 
-    params.set(Param.sortType, evt.target.id);
+    params.set(Param.SortType, evt.target.id);
     setParam(params);
   };
 
   const setCount = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (!params.get(Param.sortType)) {
-      params.set(Param.sortType, Sort.Price);
+    if (!params.get(Param.SortType)) {
+      params.set(Param.SortType, Sort.Price);
     }
 
-    params.set(Param.sortCount, evt.target.id);
+    params.set(Param.SortCountVal, evt.target.id);
     setParam(params);
   };
 
