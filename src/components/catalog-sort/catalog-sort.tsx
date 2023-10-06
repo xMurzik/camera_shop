@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Param, Sort, SortCount } from '../../constants/sort-filters';
 
 const CatalogSort: React.FC = () => {
   const [params, setParam] = useSearchParams();
 
+  useEffect(() => {
+    if (params.get(Param.sortType) && !params.get(Param.sortCount)) {
+      setParam({ [Param.sortCount]: SortCount.Down });
+    }
+
+    if (!params.get(Param.sortType) && params.get(Param.sortCount)) {
+      params.set(Param.sortType, Sort.Price);
+      setParam({ [Param.sortType]: Sort.Price });
+    }
+  }, [params, setParam]);
+
   const setTypeSort = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (!params.get(Param.sortCount)) {
+      params.set(Param.sortCount, SortCount.Down);
+    }
+
     params.set(Param.sortType, evt.target.id);
     setParam(params);
   };
 
   const setCount = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    params.set('sortCount', evt.target.id);
+    if (!params.get(Param.sortType)) {
+      params.set(Param.sortType, Sort.Price);
+    }
+
+    params.set(Param.sortCount, evt.target.id);
     setParam(params);
   };
 

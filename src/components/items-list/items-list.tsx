@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
@@ -10,16 +10,13 @@ const ItemsList: React.FC = () => {
   const [params] = useSearchParams();
   const items = useAppSelector(getAllItems);
 
-  const allParams = useMemo(
-    () => Object.fromEntries(params.entries()),
-    [params]
-  );
+  // console.log(Object.fromEntries(params.entries()));
 
   const pageParam = params.get('page');
   const indexMaxItems = Number(pageParam) * MAX_ELEMS_ON_ONE_PAGE;
   const indexStartItems = indexMaxItems - MAX_ELEMS_ON_ONE_PAGE;
 
-  const filtredItems = filterByParams(items, allParams)?.slice(
+  const filtredItems = filterByParams(items)?.slice(
     indexStartItems,
     indexMaxItems
   );

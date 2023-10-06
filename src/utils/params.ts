@@ -1,13 +1,17 @@
-import { Param, Sort, SortCount } from '../constants/sort-filters';
+import {
+  FilterParam,
+  Param,
+  Sort,
+  SortCount,
+  TypeValue,
+} from '../constants/sort-filters';
 import { IItem } from '../types/items';
 
-export const filterByParams = (
-  items: Array<IItem>,
-  params: {
-    [k: string]: string;
-  }
-) => {
+export const filterByParams = (items: Array<IItem>) => {
   const copyItems = [...items];
+
+  const paramsFromUrl = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(paramsFromUrl.entries());
 
   if (!(Param.sortCount in params) && !(Param.sortType in params)) {
     return copyItems;
@@ -58,4 +62,22 @@ export const filterByParams = (
       }
     }
   }
+};
+
+export const isCheckedTypeFilter = (value: TypeValue) => {
+  const paramsFromUrl = new URLSearchParams(window.location.search);
+
+  const params = paramsFromUrl.get(FilterParam.type);
+
+  if (params) {
+    const parsedVal = JSON.parse(params) as Array<string>;
+    if (!parsedVal.length) {
+      return false;
+    }
+    if (parsedVal.length) {
+      return parsedVal.includes(value);
+    }
+  }
+
+  return false;
 };

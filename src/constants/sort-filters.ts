@@ -13,3 +13,21 @@ export enum Param {
   sortCount = 'sortCount',
   page = 'page',
 }
+
+export enum FilterParam {
+  category = 'category',
+  level = 'level',
+  type = 'type',
+}
+
+export enum CameraCategory {
+  photocamera = 'photocamera',
+  videocamera = 'videocamera',
+}
+
+export enum TypeValue {
+  digital = 'Цифровая',
+  film = 'Плёночная',
+  snapshot = 'Моментальная',
+  collection = 'Коллекционная',
+}

@@ -50,17 +50,17 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     }
   }, [allPaggPages, dispatch, maxPageCount, setParams, urlValue]);
 
-  const onClickPrev = () => {
+  const onClickPrev = useCallback(() => {
     const newPage = Number(urlValue) - 1;
     params.set('page', newPage.toString());
     setParams(params);
-  };
+  }, [params, setParams, urlValue]);
 
-  const onClickNext = () => {
+  const onClickNext = useCallback(() => {
     const newPage = Number(urlValue) + 1;
     params.set('page', newPage.toString());
     setParams(params);
-  };
+  }, [params, setParams, urlValue]);
 
   const onClickNumber = useCallback(
     (page: number) => () => {
