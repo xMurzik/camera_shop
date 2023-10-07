@@ -82,7 +82,7 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
 
         if (Number(value) <= minPrice) {
           minValueInput.current.value = minPrice.toString();
-          params.delete(FilterParam.PriceMin);
+          params.set(FilterParam.PriceMin, minPrice.toString());
           setParams(params);
           minValueInput.current.blur();
           return;
@@ -127,7 +127,7 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
 
         if (Number(value) >= maxPrice || Number(value) < 0) {
           maxValueInput.current.value = maxPrice.toString();
-          params.delete(FilterParam.PriceMax);
+          params.set(FilterParam.PriceMax, maxPrice.toString());
           setParams(params);
           maxValueInput.current.blur();
           return;
@@ -146,7 +146,7 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
 
         if (Number(value) < minPrice) {
           maxValueInput.current.value = minPrice.toString();
-          params.delete(FilterParam.PriceMax);
+          params.set(FilterParam.PriceMax, minPrice.toString());
           setParams(params);
           maxValueInput.current.blur();
           return;
