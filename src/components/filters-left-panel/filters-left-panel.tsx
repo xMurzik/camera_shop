@@ -18,6 +18,14 @@ const FiltersLeftPanel: React.FC = () => {
       maxValueInput.current.value = '';
     }
 
+    const form = document.querySelector('.catalog-filter');
+
+    const allInputs = form?.querySelectorAll('input');
+
+    allInputs?.forEach((el) => {
+      el.checked = false;
+    });
+
     params.delete(FilterParam.Category);
     params.delete(FilterParam.Type);
     params.delete(FilterParam.Level);
@@ -41,6 +49,7 @@ const FiltersLeftPanel: React.FC = () => {
         <button
           onClick={onClickButton}
           className="btn catalog-filter__reset-btn"
+          type="reset"
         >
           Сбросить фильтры
         </button>

@@ -5,6 +5,7 @@ import ItemCard from '../item-card/item-card';
 import { useSearchParams } from 'react-router-dom';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 import { filterSortAll } from '../../utils/params';
+import s from './items-list.module.scss';
 
 const ItemsList: React.FC = () => {
   const [params] = useSearchParams();
@@ -21,11 +22,15 @@ const ItemsList: React.FC = () => {
     indexMaxItems
   );
 
-  return (
+  return filtredItems.length ? (
     <div className="cards catalog__cards">
       {filtredItems.map((el) => (
         <ItemCard key={el.id} {...el} />
       ))}
+    </div>
+  ) : (
+    <div className={s['not-found']}>
+      <h1>Таких камер нет в наличии</h1>
     </div>
   );
 };
