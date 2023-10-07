@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import {
   CameraCategory,
   FilterParam,
+  Param,
   TypeValue,
 } from '../../constants/sort-filters';
 
@@ -10,8 +11,12 @@ const CategoryBlock: React.FC = () => {
   const [params, setParams] = useSearchParams();
 
   const onChangeCategory = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    params.set(FilterParam.Category, evt.target.name);
+    if (params.get(FilterParam.Category) === evt.target.name) {
+      return;
+    }
 
+    params.set(FilterParam.Category, evt.target.name);
+    params.set(Param.Page, '1');
     if (evt.target.name === CameraCategory.Videocamera) {
       const paramType = params.get(FilterParam.Type);
 

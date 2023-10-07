@@ -9,7 +9,7 @@ import {
 } from '../constants/sort-filters';
 import { IItem } from '../types/items';
 
-export const SortByParams = (items: Array<IItem>) => {
+export const sortByParams = (items: Array<IItem>) => {
   const copyItems = [...items];
 
   const paramsFromUrl = new URLSearchParams(window.location.search);
@@ -64,6 +64,8 @@ export const SortByParams = (items: Array<IItem>) => {
       }
     }
   }
+
+  return copyItems;
 };
 
 export const filterByCategoryTypeLevel = (items: Array<IItem>) => {
@@ -141,4 +143,33 @@ export const isCheckedLevelFilter = (value: LevelValue) => {
   }
 
   return false;
+};
+
+export const filterByPrice = (items: Array<IItem>) => {
+  const paramsFromUrl = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(paramsFromUrl.entries());
+
+  let copyItems = [...items];
+
+  if (FilterParam.PriceMin in params && params.priceMin) {
+    copyItems = copyItems.filter((el) => el.price >= Number(params.priceMin));
+  }
+
+  if (FilterParam.PriceMax in params && params.priceMax) {
+    copyItems = copyItems.filter((el) => el.price <= Number(params.priceMax));
+  }
+
+  return copyItems;
+};
+
+export const filterAndSort = (items: Array<IItem>) => {
+  const result = sortByParams(items);
+
+  return filterByCategoryTypeLevel(result);
+};
+
+export const filterSortAll = (items: Array<IItem>) => {
+  const result = filterByPrice(filterByCategoryTypeLevel(sortByParams(items)));
+
+  return result;
 };

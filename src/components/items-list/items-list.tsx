@@ -4,7 +4,7 @@ import { getAllItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
 import { useSearchParams } from 'react-router-dom';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
-import { filterByCategoryTypeLevel, SortByParams } from '../../utils/params';
+import { filterSortAll } from '../../utils/params';
 
 const ItemsList: React.FC = () => {
   const [params] = useSearchParams();
@@ -12,20 +12,18 @@ const ItemsList: React.FC = () => {
 
   // console.log(Object.fromEntries(params.entries()));
 
-  filterByCategoryTypeLevel(items);
-
   const pageParam = params.get('page');
   const indexMaxItems = Number(pageParam) * MAX_ELEMS_ON_ONE_PAGE;
   const indexStartItems = indexMaxItems - MAX_ELEMS_ON_ONE_PAGE;
 
-  const filtredItems = SortByParams(items)?.slice(
+  const filtredItems = filterSortAll(items).slice(
     indexStartItems,
     indexMaxItems
   );
 
   return (
     <div className="cards catalog__cards">
-      {filtredItems?.map((el) => (
+      {filtredItems.map((el) => (
         <ItemCard key={el.id} {...el} />
       ))}
     </div>

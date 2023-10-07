@@ -18,6 +18,8 @@ export enum FilterParam {
   Category = 'category',
   Level = 'level',
   Type = 'type',
+  PriceMax = 'priceMax',
+  PriceMin = 'priceMin',
 }
 
 export enum CameraCategory {

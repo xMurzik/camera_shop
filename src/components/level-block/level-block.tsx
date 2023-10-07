@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FilterParam, LevelValue } from '../../constants/sort-filters';
+import { FilterParam, LevelValue, Param } from '../../constants/sort-filters';
 import { isCheckedLevelFilter } from '../../utils/params';
 
 const LevelBlock: React.FC = () => {
@@ -46,6 +46,7 @@ const LevelBlock: React.FC = () => {
   const onChangeLevel = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       const paramType = params.get(FilterParam.Level);
+      params.set(Param.Page, '1');
 
       if (!paramType) {
         const types = [evt.target.name];
@@ -68,8 +69,11 @@ const LevelBlock: React.FC = () => {
           prevVal.push(evt.target.name);
           params.set(FilterParam.Level, JSON.stringify(prevVal));
           setParams(params);
+          return;
         }
       }
+
+      setParams(params);
     },
     [params, setParams]
   );

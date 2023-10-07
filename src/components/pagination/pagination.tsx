@@ -3,11 +3,11 @@ import usePagination from '../../hooks/use-pagination';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
+import { filterSortAll } from '../../utils/params';
 import s from './pagintation.module.scss';
 
 const Pagination: React.FC = () => {
   const items = useAppSelector(getAllItems);
-
   const {
     urlValue,
     pageToRender,
@@ -17,11 +17,11 @@ const Pagination: React.FC = () => {
     onClickPrev,
     onClickNumber,
   } = usePagination({
-    items,
+    items: filterSortAll(items),
     maxElems: MAX_ELEMS_ON_ONE_PAGE,
   });
 
-  if (items.length <= MAX_ELEMS_ON_ONE_PAGE) {
+  if (filterSortAll(items).length <= MAX_ELEMS_ON_ONE_PAGE || !pageToRender) {
     return null;
   }
 

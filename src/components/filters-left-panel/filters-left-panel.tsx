@@ -1,23 +1,51 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CategoryBlock from '../category-block/category-block';
 import TypeCamerasBlock from '../type-cameras-block/type-cameras-block';
 import LevelBlock from '../level-block/level-block';
 import PriceBlock from '../price-block/price-block';
+import { useSearchParams } from 'react-router-dom';
+import { FilterParam, Param } from '../../constants/sort-filters';
 
-const FiltersLeftPanel: React.FC = () => (
-  <div className="catalog__aside">
-    <div className="catalog-filter">
-      <form action="#">
+const FiltersLeftPanel: React.FC = () => {
+  const [params, setParams] = useSearchParams();
+
+  const minValueInput = useRef<HTMLInputElement | null>(null);
+  const maxValueInput = useRef<HTMLInputElement | null>(null);
+
+  const onClickButton = () => {
+    if (minValueInput.current && maxValueInput.current) {
+      minValueInput.current.value = '';
+      maxValueInput.current.value = '';
+    }
+
+    params.delete(FilterParam.Category);
+    params.delete(FilterParam.Type);
+    params.delete(FilterParam.Level);
+    params.delete(FilterParam.PriceMax);
+    params.delete(FilterParam.PriceMin);
+    params.delete(Param.SortCountVal);
+    params.delete(Param.SortType);
+    setParams(params);
+  };
+  return (
+    <div className="catalog__aside">
+      <div className="catalog-filter">
         <h2 className="visually-hidden">Фильтр</h2>
-        <PriceBlock />
+        <PriceBlock
+          minValueInput={minValueInput}
+          maxValueInput={maxValueInput}
+        />
         <CategoryBlock />
         <TypeCamerasBlock />
         <LevelBlock />
-        <button className="btn catalog-filter__reset-btn" type="reset">
+        <button
+          onClick={onClickButton}
+          className="btn catalog-filter__reset-btn"
+        >
           Сбросить фильтры
         </button>
-      </form>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 export default FiltersLeftPanel;

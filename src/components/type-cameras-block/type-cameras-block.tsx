@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import {
   CameraCategory,
   FilterParam,
+  Param,
   TypeValue,
 } from '../../constants/sort-filters';
 import { isCheckedTypeFilter } from '../../utils/params';
@@ -76,6 +77,7 @@ const TypeCamerasBlock: React.FC = () => {
   const onChangeType = useCallback(
     (evt: React.ChangeEvent<HTMLInputElement>) => {
       const paramType = params.get(FilterParam.Type);
+      params.set(Param.Page, '1');
 
       if (!paramType) {
         const types = [evt.target.name];
@@ -98,8 +100,11 @@ const TypeCamerasBlock: React.FC = () => {
           prevVal.push(evt.target.name);
           params.set(FilterParam.Type, JSON.stringify(prevVal));
           setParams(params);
+          return;
         }
       }
+
+      setParams(params);
     },
     [params, setParams]
   );
