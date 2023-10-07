@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
 import { useSearchParams } from 'react-router-dom';
 import { MAX_ELEMS_ON_ONE_PAGE } from '../../constants/common';
 import { filterSortAll } from '../../utils/params';
+import { FilterParam } from '../../constants/sort-filters';
 import s from './items-list.module.scss';
 
 const ItemsList: React.FC = () => {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const items = useAppSelector(getAllItems);
+
+  useEffect(() => {
+    params.delete(FilterParam.PriceMax);
+    params.delete(FilterParam.PriceMin);
+    setParams(params);
+  }, []);
 
   // console.log(Object.fromEntries(params.entries()));
 

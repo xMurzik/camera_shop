@@ -63,11 +63,11 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
     }
   }, [maxPrice, maxValueInput, minPrice, minValueInput]);
 
-  useEffect(() => {
-    params.delete(FilterParam.PriceMax);
-    params.delete(FilterParam.PriceMin);
-    setParams(params);
-  }, []);
+  // useEffect(() => {
+  //   params.delete(FilterParam.PriceMax);
+  //   params.delete(FilterParam.PriceMin);
+  //   setParams(params);
+  // }, []);
 
   const checkMinPrice = (value: string) => {
     if (minValueInput.current) {
