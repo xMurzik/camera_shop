@@ -44,13 +44,19 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
   useEffect(() => {
     if (minValueInput.current && maxValueInput.current) {
       if (minValueInput.current.value) {
-        if (Number(minValueInput.current.value) < minPrice) {
+        if (
+          Number(minValueInput.current.value) < minPrice ||
+          Number(minValueInput.current.value) > maxPrice
+        ) {
           minValueInput.current.value = minPrice.toString();
         }
       }
 
       if (maxValueInput.current.value) {
-        if (Number(maxValueInput.current.value) > maxPrice) {
+        if (
+          Number(maxValueInput.current.value) > maxPrice ||
+          Number(maxValueInput.current.value) < minPrice
+        ) {
           maxValueInput.current.value = maxPrice.toString();
         }
       }
@@ -148,6 +154,7 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
         params.set(Param.Page, '1');
         params.set(FilterParam.PriceMax, value);
         setParams(params);
+        maxValueInput.current.blur();
       }
     }
   };
