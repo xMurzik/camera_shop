@@ -44,7 +44,7 @@ const CatalogSort: React.FC = () => {
               <input
                 onChange={setTypeSort}
                 type="radio"
-                checked={params.get('sortType') === Sort.Price}
+                checked={params.get(Param.SortType) === Sort.Price}
                 id="sortPrice"
                 name="sort"
               />
@@ -53,7 +53,7 @@ const CatalogSort: React.FC = () => {
             <div className="catalog-sort__btn-text">
               <input
                 onChange={setTypeSort}
-                checked={params.get('sortType') === Sort.Popular}
+                checked={params.get(Param.SortType) === Sort.Popular}
                 type="radio"
                 id="sortPopular"
                 name="sort"
@@ -68,7 +68,7 @@ const CatalogSort: React.FC = () => {
                 id="up"
                 name="sort-icon"
                 onChange={setCount}
-                checked={params.get('sortCount') === SortCount.Up}
+                checked={params.get(Param.SortCountVal) === SortCount.Up}
                 aria-label="По возрастанию"
               />
               <label htmlFor="up">
@@ -81,7 +81,7 @@ const CatalogSort: React.FC = () => {
               <input
                 type="radio"
                 id="down"
-                checked={params.get('sortCount') === SortCount.Down}
+                checked={params.get(Param.SortCountVal) === SortCount.Down}
                 onChange={setCount}
                 name="sort-icon"
                 aria-label="По убыванию"

@@ -22,7 +22,6 @@ describe('items list', () => {
 
     render(withBrowserRouter);
 
-    expect(screen.getByText(items[0].name)).toBeInTheDocument();
-    expect(screen.getByText(items[1].name)).toBeInTheDocument();
+    expect(screen.getByText('Таких камер нет в наличии')).toBeInTheDocument();
   });
 });

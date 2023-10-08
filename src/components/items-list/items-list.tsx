@@ -18,8 +18,6 @@ const ItemsList: React.FC = () => {
     setParams(params);
   }, []);
 
-  // console.log(Object.fromEntries(params.entries()));
-
   const pageParam = params.get('page');
   const indexMaxItems = Number(pageParam) * MAX_ELEMS_ON_ONE_PAGE;
   const indexStartItems = indexMaxItems - MAX_ELEMS_ON_ONE_PAGE;

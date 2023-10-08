@@ -45,4 +45,18 @@ describe('app', () => {
 
     expect(screen.getByText('Page not found')).toBeInTheDocument();
   });
+
+  it('error routing', () => {
+    const route = '/error';
+    const fakeStore = createFakeStore();
+    fakeStore.items.isError = true;
+
+    const { withStoreComponent } = withStore(<App />, fakeStore);
+
+    render(
+      <MemoryRouter initialEntries={[route]}>{withStoreComponent}</MemoryRouter>
+    );
+
+    expect(screen.getByText('Произошла ошибка')).toBeInTheDocument();
+  });
 });
