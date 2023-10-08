@@ -8,12 +8,13 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import FiltersLeftPanel from '../../components/filters-left-panel/filters-left-panel';
+import Preloader from '../../components/preloader/preloader';
 
 const CatalogPage: React.FC = () => {
   const items = useAppSelector(getAllItems);
 
   if (!items.length) {
-    return null;
+    return <Preloader />;
   }
 
   return (

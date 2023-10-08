@@ -84,7 +84,7 @@ const LevelBlock: React.FC = () => {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input
-            defaultChecked={isCheckedLevelFilter(LevelValue.zero)}
+            checked={isCheckedLevelFilter(LevelValue.zero)}
             onChange={onChangeLevel}
             type="checkbox"
             name="Нулевой"
@@ -96,7 +96,7 @@ const LevelBlock: React.FC = () => {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input
-            defaultChecked={isCheckedLevelFilter(LevelValue.NonProf)}
+            checked={isCheckedLevelFilter(LevelValue.NonProf)}
             onChange={onChangeLevel}
             type="checkbox"
             name="Любительский"
@@ -108,7 +108,7 @@ const LevelBlock: React.FC = () => {
       <div className="custom-checkbox catalog-filter__item">
         <label>
           <input
-            defaultChecked={isCheckedLevelFilter(LevelValue.Pro)}
+            checked={isCheckedLevelFilter(LevelValue.Pro)}
             onChange={onChangeLevel}
             type="checkbox"
             name="Профессиональный"

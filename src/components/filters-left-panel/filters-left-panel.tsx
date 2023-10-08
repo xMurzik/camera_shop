@@ -18,14 +18,6 @@ const FiltersLeftPanel: React.FC = () => {
       maxValueInput.current.value = '';
     }
 
-    const form = document.querySelector('.catalog-filter');
-
-    const allInputs = form?.querySelectorAll('input');
-
-    allInputs?.forEach((el) => {
-      el.checked = false;
-    });
-
     params.delete(FilterParam.Category);
     params.delete(FilterParam.Type);
     params.delete(FilterParam.Level);

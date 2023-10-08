@@ -118,7 +118,7 @@ const TypeCamerasBlock: React.FC = () => {
             onChange={onChangeType}
             type="checkbox"
             name="Цифровая"
-            defaultChecked={isCheckedTypeFilter(TypeValue.Digital)}
+            checked={isCheckedTypeFilter(TypeValue.Digital)}
           />
           <span className="custom-checkbox__icon" />
           <span className="custom-checkbox__label">Цифровая</span>
@@ -129,7 +129,7 @@ const TypeCamerasBlock: React.FC = () => {
           <input
             onChange={onChangeType}
             ref={refPlenochnaya}
-            defaultChecked={isCheckedTypeFilter(TypeValue.Film)}
+            checked={isCheckedTypeFilter(TypeValue.Film)}
             disabled={
               params.get(FilterParam.Category) === CameraCategory.Videocamera
             }
@@ -145,7 +145,7 @@ const TypeCamerasBlock: React.FC = () => {
           <input
             onChange={onChangeType}
             ref={refMomentalnaya}
-            defaultChecked={isCheckedTypeFilter(TypeValue.Snapshot)}
+            checked={isCheckedTypeFilter(TypeValue.Snapshot)}
             disabled={
               params.get(FilterParam.Category) === CameraCategory.Videocamera
             }
@@ -162,7 +162,7 @@ const TypeCamerasBlock: React.FC = () => {
             onChange={onChangeType}
             type="checkbox"
             name="Коллекционная"
-            defaultChecked={isCheckedTypeFilter(TypeValue.Collection)}
+            checked={isCheckedTypeFilter(TypeValue.Collection)}
           />
           <span className="custom-checkbox__icon" />
           <span className="custom-checkbox__label">Коллекционная</span>

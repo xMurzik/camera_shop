@@ -6,36 +6,36 @@ import SearchForm from '../search-form/search-form';
 const Header: React.FC = () => (
   <header className="header" id="header">
     <div className="container">
-      <a
+      <Link
         className="header__logo"
-        href={Path.Catalog}
+        to={Path.Catalog}
         aria-label="Переход на главную"
       >
         <svg width={100} height={36} aria-hidden="true">
           <use xlinkHref="#icon-logo" />
         </svg>
-      </a>
+      </Link>
       <nav className="main-nav header__main-nav">
         <ul className="main-nav__list">
           <li className="main-nav__item">
-            <a className="main-nav__link" href={Path.Catalog}>
+            <Link className="main-nav__link" to={Path.Catalog}>
               Каталог
-            </a>
+            </Link>
           </li>
           <li className="main-nav__item">
-            <a className="main-nav__link" href="#">
+            <Link className="main-nav__link" to={Path.Catalog}>
               Гарантии
-            </a>
+            </Link>
           </li>
           <li className="main-nav__item">
-            <a className="main-nav__link" href="#">
+            <Link className="main-nav__link" to={Path.Catalog}>
               Доставка
-            </a>
+            </Link>
           </li>
           <li className="main-nav__item">
-            <a className="main-nav__link" href="#">
+            <Link className="main-nav__link" to={Path.Catalog}>
               О компании
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
