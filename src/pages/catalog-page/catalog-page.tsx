@@ -8,6 +8,7 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import {
   getAllItems,
   getErrorStatusItems,
+  getLoadingStatusItems,
 } from '../../store/items-slice/items-selectors';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import FiltersLeftPanel from '../../components/filters-left-panel/filters-left-panel';
@@ -16,12 +17,13 @@ import Preloader from '../../components/preloader/preloader';
 const CatalogPage: React.FC = () => {
   const items = useAppSelector(getAllItems);
   const errorStatus = useAppSelector(getErrorStatusItems);
+  const isLoading = useAppSelector(getLoadingStatusItems);
 
   if (errorStatus) {
-    return <Navigate to={Path.Error} />;
+    return <Navigate to={Path.Error} replace />;
   }
 
-  if (!items.length) {
+  if (!items.length || isLoading) {
     return <Preloader />;
   }
 

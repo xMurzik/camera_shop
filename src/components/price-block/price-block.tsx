@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
@@ -40,32 +40,6 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
     minPrice = 0;
     maxPrice = 0;
   }
-
-  useLayoutEffect(() => {
-    if (minValueInput.current && maxValueInput.current) {
-      if (minValueInput.current.value) {
-        if (
-          Number(minValueInput.current.value) < minPrice ||
-          Number(minValueInput.current.value) > maxPrice
-        ) {
-          minValueInput.current.value = minPrice.toString();
-          params.set(FilterParam.PriceMin, minPrice.toString());
-          setParams(params);
-        }
-      }
-
-      if (maxValueInput.current.value) {
-        if (
-          Number(maxValueInput.current.value) > maxPrice ||
-          Number(maxValueInput.current.value) < minPrice
-        ) {
-          maxValueInput.current.value = maxPrice.toString();
-          params.set(FilterParam.PriceMax, maxPrice.toString());
-          setParams(params);
-        }
-      }
-    }
-  }, [maxPrice, maxValueInput, minPrice, minValueInput, params, setParams]);
 
   const checkMinPrice = (value: string) => {
     if (minValueInput.current) {
