@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { getAllItems } from '../../store/items-slice/items-selectors';
 import ItemCard from '../item-card/item-card';
@@ -12,9 +12,10 @@ const ItemsList: React.FC = () => {
   const [params, setParams] = useSearchParams();
   const items = useAppSelector(getAllItems);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     params.delete(FilterParam.PriceMax);
     params.delete(FilterParam.PriceMin);
+
     setParams(params);
   }, []);
 
