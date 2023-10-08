@@ -3,6 +3,7 @@ export enum Path {
   Basket = '/basket',
   OneItem = '/:id',
   NotFound = '*',
+  Error = '/error',
 }
 
 export const MAX_ELEMS_ON_ONE_PAGE = 9;

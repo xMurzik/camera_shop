@@ -6,6 +6,7 @@ import MainLayout from '../../layout/main-layout/main-layout';
 import { Path } from '../../constants/common';
 import ItemPage from '../../pages/item-page/item-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import ErrorPage from '../../pages/error-page/error-page';
 
 const App: React.FC = () => (
   <Routes>
@@ -14,6 +15,7 @@ const App: React.FC = () => (
       <Route path={Path.Basket} element={<BasketPage />} />
       <Route path={Path.OneItem} element={<ItemPage />} />
     </Route>
+    <Route path={Path.Error} element={<ErrorPage />} />
     <Route path={Path.NotFound} element={<NotFoundPage />} />
   </Routes>
 );

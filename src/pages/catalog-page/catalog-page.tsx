@@ -2,16 +2,24 @@ import React from 'react';
 import Banner from '../../components/banner/banner';
 import ItemsList from '../../components/items-list/items-list';
 import Pagination from '../../components/pagination/pagination';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Path } from '../../constants/common';
 import { useAppSelector } from '../../hooks/redux-hooks';
-import { getAllItems } from '../../store/items-slice/items-selectors';
+import {
+  getAllItems,
+  getErrorStatusItems,
+} from '../../store/items-slice/items-selectors';
 import CatalogSort from '../../components/catalog-sort/catalog-sort';
 import FiltersLeftPanel from '../../components/filters-left-panel/filters-left-panel';
 import Preloader from '../../components/preloader/preloader';
 
 const CatalogPage: React.FC = () => {
   const items = useAppSelector(getAllItems);
+  const errorStatus = useAppSelector(getErrorStatusItems);
+
+  if (errorStatus) {
+    return <Navigate to={Path.Error} />;
+  }
 
   if (!items.length) {
     return <Preloader />;
