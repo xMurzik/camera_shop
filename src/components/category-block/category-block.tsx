@@ -11,12 +11,15 @@ const CategoryBlock: React.FC = () => {
   const [params, setParams] = useSearchParams();
 
   const onChangeCategory = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    params.set(Param.Page, '1');
     if (params.get(FilterParam.Category) === evt.target.name) {
+      params.delete(FilterParam.Category);
+      setParams(params);
       return;
     }
 
     params.set(FilterParam.Category, evt.target.name);
-    params.set(Param.Page, '1');
+
     if (evt.target.name === CameraCategory.Videocamera) {
       const paramType = params.get(FilterParam.Type);
 

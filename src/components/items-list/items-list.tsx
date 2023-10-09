@@ -36,7 +36,7 @@ const ItemsList: React.FC = () => {
     </div>
   ) : (
     <div className={s['not-found']}>
-      <h1>Таких камер нет в наличии</h1>
+      <h1>по вашему запросу ничего не найдено</h1>
     </div>
   );
 };
