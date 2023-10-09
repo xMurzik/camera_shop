@@ -6,6 +6,7 @@ const useKeyPress = () => {
   useEffect(() => {
     const downHandler = (evt: KeyboardEvent) => {
       if (evt.key === 'ArrowDown') {
+        evt.preventDefault();
         const rootElement = ulRef.current;
         let isFocused = true;
         if (rootElement) {
@@ -30,6 +31,7 @@ const useKeyPress = () => {
 
     const upHandler = (evt: KeyboardEvent) => {
       if (evt.key === 'ArrowUp') {
+        evt.preventDefault();
         const rootElement = ulRef.current;
 
         if (rootElement) {
