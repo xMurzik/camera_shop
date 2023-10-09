@@ -42,93 +42,72 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
   }
 
   const checkMinPrice = (value: string) => {
-    if (minValueInput.current) {
-      if (maxValueInput.current) {
-        if (!value || !Number(value)) {
-          params.delete(FilterParam.PriceMin);
-          setParams(params);
-          minValueInput.current.value = '';
-          minValueInput.current.blur();
-          return;
-        }
-
-        if (Number(value) <= minPrice) {
-          minValueInput.current.value = minPrice.toString();
-          params.set(FilterParam.PriceMin, minPrice.toString());
-          setParams(params);
-          minValueInput.current.blur();
-          return;
-        }
-
-        if (
-          maxValueInput.current.value &&
-          Number(value) > Number(maxValueInput.current.value)
-        ) {
-          minValueInput.current.value = maxValueInput.current.value;
-          params.set(FilterParam.PriceMin, maxValueInput.current.value);
-          setParams(params);
-          minValueInput.current.blur();
-          return;
-        }
-
-        if (Number(value) > maxPrice) {
-          minValueInput.current.value = maxPrice.toString();
-          params.set(FilterParam.PriceMin, maxPrice.toString());
-          setParams(params);
-          minValueInput.current.blur();
-          return;
-        }
-
-        params.set(FilterParam.PriceMin, value);
-        setParams(params);
-        minValueInput.current.blur();
-      }
+    if (!minValueInput.current || !maxValueInput.current) {
+      return;
     }
+
+    let newValue: string | undefined = value;
+
+    if (!value || !Number(value)) {
+      params.delete(FilterParam.PriceMin);
+      minValueInput.current.value = '';
+    } else {
+      newValue = Math.max(minPrice, Number(value)).toString();
+
+      if (
+        maxValueInput.current.value &&
+        Number(newValue) > Number(maxValueInput.current.value)
+      ) {
+        newValue = maxValueInput.current.value;
+      } else if (Number(newValue) > maxPrice) {
+        newValue = maxPrice.toString();
+      }
+
+      params.set(FilterParam.PriceMin, newValue);
+    }
+
+    setParams(params);
+    minValueInput.current.value = newValue;
+    minValueInput.current.blur();
   };
 
   const checkMaxPrice = (value: string) => {
-    if (minValueInput.current) {
-      if (maxValueInput.current) {
-        if (!value || !Number(value)) {
-          maxValueInput.current.value = '';
-          params.delete(FilterParam.PriceMax);
-          setParams(params);
-          maxValueInput.current.blur();
-          return;
-        }
+    if (!minValueInput.current || !maxValueInput.current) {
+      return;
+    }
 
-        if (Number(value) >= maxPrice || Number(value) < 0) {
-          maxValueInput.current.value = maxPrice.toString();
-          params.set(FilterParam.PriceMax, maxPrice.toString());
-          setParams(params);
-          maxValueInput.current.blur();
-          return;
-        }
+    let newValue: string | undefined = value;
 
-        if (
-          minValueInput.current.value &&
-          Number(value) < Number(minValueInput.current.value)
-        ) {
-          maxValueInput.current.value = minValueInput.current.value;
-          params.set(FilterParam.PriceMax, minValueInput.current.value);
-          setParams(params);
-          maxValueInput.current.blur();
-          return;
-        }
+    switch (true) {
+      case !value || !Number(value):
+        newValue = '';
+        params.delete(FilterParam.PriceMax);
+        break;
 
-        if (Number(value) < minPrice) {
-          maxValueInput.current.value = minPrice.toString();
-          params.set(FilterParam.PriceMax, minPrice.toString());
-          setParams(params);
-          maxValueInput.current.blur();
-          return;
-        }
+      case Number(value) >= maxPrice || Number(value) < 0:
+        newValue = maxPrice.toString();
+        params.set(FilterParam.PriceMax, newValue);
+        break;
+
+      case minValueInput.current.value &&
+        Number(value) < Number(minValueInput.current.value):
+        newValue = minValueInput.current.value;
+        params.set(FilterParam.PriceMax, newValue);
+        break;
+
+      case Number(value) < minPrice:
+        newValue = minPrice.toString();
+        params.set(FilterParam.PriceMax, newValue);
+        break;
+
+      default:
         params.set(Param.Page, '1');
         params.set(FilterParam.PriceMax, value);
-        setParams(params);
-        maxValueInput.current.blur();
-      }
     }
+
+    setParams(params);
+    maxValueInput.current.value = newValue;
+    maxValueInput.current.blur();
   };
 
   const onBlurMinPrice = (evt: React.FocusEvent<HTMLInputElement, Element>) => {

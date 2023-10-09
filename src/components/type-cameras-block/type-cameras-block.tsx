@@ -10,8 +10,8 @@ import { isCheckedTypeFilter } from '../../utils/params';
 
 const TypeCamerasBlock: React.FC = () => {
   const [params, setParams] = useSearchParams();
-  const refPlenochnaya = useRef<HTMLInputElement | null>(null);
-  const refMomentalnaya = useRef<HTMLInputElement | null>(null);
+  const refFilm = useRef<HTMLInputElement | null>(null);
+  const refSnapshot = useRef<HTMLInputElement | null>(null);
 
   const filterTypeParamsArray = useCallback(() => {
     const paramType = params.get(FilterParam.Type);
@@ -51,11 +51,11 @@ const TypeCamerasBlock: React.FC = () => {
     }
 
     if (params.get(FilterParam.Category) === CameraCategory.Videocamera) {
-      if (refPlenochnaya.current) {
-        refPlenochnaya.current.checked = false;
+      if (refFilm.current) {
+        refFilm.current.checked = false;
       }
-      if (refMomentalnaya.current) {
-        refMomentalnaya.current.checked = false;
+      if (refSnapshot.current) {
+        refSnapshot.current.checked = false;
       }
 
       if (paramType) {
@@ -82,25 +82,14 @@ const TypeCamerasBlock: React.FC = () => {
       if (!paramType) {
         const types = [evt.target.name];
         params.set(FilterParam.Type, JSON.stringify(types));
-        setParams(params);
-        return;
-      }
-
-      if (paramType) {
+      } else {
         const prevVal: Array<string> = JSON.parse(paramType) as Array<string>;
-
         if (prevVal.includes(evt.target.name)) {
           const newVal = prevVal.filter((el) => el !== evt.target.name);
           params.set(FilterParam.Type, JSON.stringify(newVal));
-          setParams(params);
-          return;
-        }
-
-        if (!prevVal.includes(evt.target.name)) {
+        } else {
           prevVal.push(evt.target.name);
           params.set(FilterParam.Type, JSON.stringify(prevVal));
-          setParams(params);
-          return;
         }
       }
 
@@ -128,7 +117,7 @@ const TypeCamerasBlock: React.FC = () => {
         <label>
           <input
             onChange={onChangeType}
-            ref={refPlenochnaya}
+            ref={refFilm}
             checked={isCheckedTypeFilter(TypeValue.Film)}
             disabled={
               params.get(FilterParam.Category) === CameraCategory.Videocamera
@@ -144,7 +133,7 @@ const TypeCamerasBlock: React.FC = () => {
         <label>
           <input
             onChange={onChangeType}
-            ref={refMomentalnaya}
+            ref={refSnapshot}
             checked={isCheckedTypeFilter(TypeValue.Snapshot)}
             disabled={
               params.get(FilterParam.Category) === CameraCategory.Videocamera
