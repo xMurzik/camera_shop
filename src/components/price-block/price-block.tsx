@@ -46,23 +46,19 @@ const PriceBlock: React.FC<IPriceBlockProps> = ({
       return;
     }
 
-    let newValue: string | undefined = value;
+    let newValue = Math.max(minPrice, Number(value)).toString();
 
     if (!value || !Number(value)) {
       params.delete(FilterParam.PriceMin);
       minValueInput.current.value = '';
+    } else if (
+      maxValueInput.current.value &&
+      Number(newValue) > Number(maxValueInput.current.value)
+    ) {
+      newValue = maxValueInput.current.value;
+    } else if (Number(newValue) > maxPrice) {
+      newValue = maxPrice.toString();
     } else {
-      newValue = Math.max(minPrice, Number(value)).toString();
-
-      if (
-        maxValueInput.current.value &&
-        Number(newValue) > Number(maxValueInput.current.value)
-      ) {
-        newValue = maxValueInput.current.value;
-      } else if (Number(newValue) > maxPrice) {
-        newValue = maxPrice.toString();
-      }
-
       params.set(FilterParam.PriceMin, newValue);
     }
 

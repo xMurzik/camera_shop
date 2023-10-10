@@ -79,18 +79,17 @@ const TypeCamerasBlock: React.FC = () => {
       const paramType = params.get(FilterParam.Type);
       params.set(Param.Page, '1');
 
-      if (!paramType) {
+      const prevVal = paramType && (JSON.parse(paramType) as Array<string>);
+
+      if (!prevVal) {
         const types = [evt.target.name];
         params.set(FilterParam.Type, JSON.stringify(types));
+      } else if (prevVal.includes(evt.target.name)) {
+        const newVal = prevVal.filter((el) => el !== evt.target.name);
+        params.set(FilterParam.Type, JSON.stringify(newVal));
       } else {
-        const prevVal: Array<string> = JSON.parse(paramType) as Array<string>;
-        if (prevVal.includes(evt.target.name)) {
-          const newVal = prevVal.filter((el) => el !== evt.target.name);
-          params.set(FilterParam.Type, JSON.stringify(newVal));
-        } else {
-          prevVal.push(evt.target.name);
-          params.set(FilterParam.Type, JSON.stringify(prevVal));
-        }
+        prevVal.push(evt.target.name);
+        params.set(FilterParam.Type, JSON.stringify(prevVal));
       }
 
       setParams(params);
