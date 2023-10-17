@@ -11,8 +11,10 @@ describe('modal slice', () => {
   const state = {
     currentActiveCatalogItem: null,
     currentActiveBasketItem: null,
+    currentActiveDeleteItem: null,
     isShowModalToBuy: false,
     isShowModalSuccesBasket: false,
+    isShowModalToDelete: false,
   };
 
   const activeItem = createItems()[0];
@@ -61,6 +63,8 @@ describe('modal slice', () => {
       currentActiveBasketItem: null,
       isShowModalToBuy: true,
       isShowModalSuccesBasket: true,
+      currentActiveDeleteItem: null,
+      isShowModalToDelete: false,
     };
 
     const result = modalSlice(stateCopy, onClickOverlayOrExit);
@@ -74,6 +78,8 @@ describe('modal slice', () => {
       currentActiveBasketItem: null,
       isShowModalToBuy: true,
       isShowModalSuccesBasket: false,
+      currentActiveDeleteItem: null,
+      isShowModalToDelete: false,
     };
 
     const expectedState = {
