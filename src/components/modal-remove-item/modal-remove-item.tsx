@@ -1,46 +1,45 @@
 import React from 'react';
+import UseFocusModal from '../../hooks/use-focus-modal';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
-  getCurrentActiveCatalogItem,
-  getIsShowModalToBuy,
+  getCurrentActiveDeleteItem,
+  getIsShowModalToDelete,
 } from '../../store/modal-slice/modal-selectorts';
-import {
-  onClickOverlayOrExit,
-  onClickSuccessBuy,
-} from '../../store/modal-slice/modal-slice';
-import UseFocusModal from '../../hooks/use-focus-modal';
-import { formatPrice } from '../../utils/format';
-import { addItemsToBasket } from '../../store/basket-slice/basket-slice';
+import { CameraCategory } from '../../constants/sort-filters';
+import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
+import { deleteAllItems } from '../../store/basket-slice/basket-slice';
 
-const ModalItem: React.FC = () => {
+const ModalRemoveItem: React.FC = () => {
   const dispatch = useAppDispatch();
+  const isActive = useAppSelector(getIsShowModalToDelete);
+  const data = useAppSelector(getCurrentActiveDeleteItem);
 
-  const isActive = useAppSelector(getIsShowModalToBuy);
-  const data = useAppSelector(getCurrentActiveCatalogItem);
-
-  const onClickExit = () => {
-    dispatch(onClickOverlayOrExit());
-  };
-
-  const onClickButtonSuccessBuy = () => {
-    if (data) {
-      dispatch(onClickSuccessBuy());
-      dispatch(addItemsToBasket(data));
-    }
-  };
-
-  const refModalDiv = UseFocusModal();
+  const refDiv = UseFocusModal();
 
   if (!data) {
     return null;
   }
 
+  const onClickOverlay = () => {
+    dispatch(onClickOverlayOrExit());
+  };
+
+  const onClickDelete = () => {
+    dispatch(deleteAllItems(data.id));
+    dispatch(onClickOverlayOrExit());
+  };
+
+  const categoryValue =
+    data.category === CameraCategory.Photocamera
+      ? 'фотокамера'
+      : data.category.toLocaleLowerCase();
+
   return (
-    <div ref={refModalDiv} className={`modal ${isActive ? 'is-active' : ''}`}>
+    <div ref={refDiv} className={`modal ${isActive ? 'is-active' : ''}`}>
       <div className="modal__wrapper">
-        <div onClick={onClickExit} className="modal__overlay" />
+        <div className="modal__overlay" onClick={onClickOverlay} />
         <div className="modal__content">
-          <p className="title title--h4">Добавить товар в корзину</p>
+          <p className="title title--h4">Удалить этот товар?</p>
           <div className="basket-item basket-item--short">
             <div className="basket-item__img">
               <picture>
@@ -65,37 +64,33 @@ const ModalItem: React.FC = () => {
                   <span className="basket-item__number">{data.vendorCode}</span>
                 </li>
                 <li className="basket-item__list-item">
-                  {data.type} фотокамера
+                  {data.type} {categoryValue}
                 </li>
                 <li className="basket-item__list-item">{data.level} уровень</li>
               </ul>
-
-              <p className="basket-item__price">
-                <span className="visually-hidden">Цена:</span>
-                {formatPrice(data.price)} ₽
-              </p>
             </div>
           </div>
-
           <div className="modal__buttons">
             <button
-              className="btn btn--purple modal__btn modal__btn--fit-width"
+              className="btn btn--purple modal__btn modal__btn--half-width"
               type="button"
-              id="add-item-to-basket"
-              onClick={onClickButtonSuccessBuy}
+              id="delete-button-modal"
+              onClick={onClickDelete}
             >
-              <svg width="24" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-add-basket"></use>
-              </svg>
-              Добавить в корзину
+              Удалить
+            </button>
+            <button
+              onClick={onClickOverlay}
+              className="btn btn--transparent modal__btn modal__btn--half-width"
+            >
+              Продолжить покупки
             </button>
           </div>
-
           <button
             className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
-            onClick={onClickExit}
+            onClick={onClickOverlay}
           >
             <svg width={10} height={10} aria-hidden="true">
               <use xlinkHref="#icon-close" />
@@ -107,4 +102,4 @@ const ModalItem: React.FC = () => {
   );
 };
 
-export default ModalItem;
+export default ModalRemoveItem;

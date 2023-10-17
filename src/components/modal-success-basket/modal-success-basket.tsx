@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Path } from '../../constants/common';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getIsShowModalSuccesBasket } from '../../store/modal-slice/modal-selectorts';
@@ -9,9 +9,19 @@ import UseFocusModal from '../../hooks/use-focus-modal';
 const ModalSuccessBasket: React.FC = () => {
   const dispatch = useAppDispatch();
   const isActive = useAppSelector(getIsShowModalSuccesBasket);
+  const navigate = useNavigate();
+  const isItemPage = useParams();
 
   const onClickOverlay = () => {
     dispatch(onClickOverlayOrExit());
+  };
+
+  const onClickButtonContBuy = () => {
+    dispatch(onClickOverlayOrExit());
+
+    if ('id' in isItemPage) {
+      navigate(Path.Catalog);
+    }
   };
 
   const refModalDiv = UseFocusModal();
@@ -33,7 +43,7 @@ const ModalSuccessBasket: React.FC = () => {
           </svg>
           <div className="modal__buttons">
             <button
-              onClick={onClickOverlay}
+              onClick={onClickButtonContBuy}
               className="btn btn--transparent modal__btn"
               id="cont-to-buy"
             >
