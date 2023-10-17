@@ -87,9 +87,16 @@ export const createFakeStore = (): State => ({
     comments: createComments(),
   },
   modal: {
+    currentActiveDeleteItem: createItems()[0],
     currentActiveCatalogItem: createItems()[0],
     currentActiveBasketItem: createItems()[0],
     isShowModalToBuy: false,
     isShowModalSuccesBasket: false,
+    isShowModalToDelete: false,
+  },
+  basket: {
+    isError: false,
+    items: [],
+    sale: null,
   },
 });
