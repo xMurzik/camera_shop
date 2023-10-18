@@ -189,7 +189,10 @@ describe('basket slice', () => {
     const expectedState = {
       isError: true,
       items: [...cardItems],
-      sale: null,
+      sale: {
+        name: 'camera-444',
+        value: 25,
+      },
     };
 
     const result = basketSlice(state, fetchCoupon.fulfilled(25, '', ''));
