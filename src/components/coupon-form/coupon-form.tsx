@@ -6,27 +6,27 @@ import {
 } from '../../store/basket-slice/basket-selectors';
 import { fetchCoupon } from '../../store/basket-slice/async-basket';
 import { resetError } from '../../store/basket-slice/basket-slice';
-import s from './coupon-form.module.scss';
 import { TIMER_RESET_ERROR } from '../../constants/basket';
+import { toast } from 'react-toastify';
+import s from './coupon-form.module.scss';
 
 const CouponForm = () => {
   const dispatch = useAppDispatch();
   const sale = useAppSelector(getSale);
   const isErrorCoupon = useAppSelector(isErrorSale);
-  const [valueInput, setValueInput] = useState(() => {
-    if (sale) {
-      return sale.name;
-    } else {
-      return '';
-    }
-  });
+  const [valueInput, setValueInput] = useState(sale ? sale.name : '');
 
   const onChangeInputSale = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setValueInput(evt.target.value.trim());
+    setValueInput(evt.target.value.replace(/\s/gi, ''));
   };
 
   const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    if (!valueInput) {
+      toast.warn('Поле купона не должно быть пустым');
+      return;
+    }
     dispatch(fetchCoupon(valueInput.toString()));
 
     setTimeout(() => {

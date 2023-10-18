@@ -93,6 +93,7 @@ export const createFakeStore = (): State => ({
     isShowModalToBuy: false,
     isShowModalSuccesBasket: false,
     isShowModalToDelete: false,
+    isShowThanksForBuy: false,
   },
   basket: {
     isError: false,

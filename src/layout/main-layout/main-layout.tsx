@@ -8,6 +8,7 @@ import ModalItem from '../../components/modal-item/modal-item';
 import ModalSuccessBasket from '../../components/modal-success-basket/modal-success-basket';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
+import ModalThanksBuy from '../../components/modal-thanks-buy/modal-thanks-buy';
 
 const MainLayout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ const MainLayout: React.FC = () => {
       {createPortal(<ModalItem />, document.body)}
       {createPortal(<ModalSuccessBasket />, document.body)}
       {createPortal(<ModalRemoveItem />, document.body)}
+      {createPortal(<ModalThanksBuy />, document.body)}
     </div>
   );
 };

@@ -6,4 +6,5 @@ export enum ApiRoute {
   Similar = 'similar',
   Reviews = 'reviews',
   Сoupons = 'coupons',
+  Orders = 'orders',
 }

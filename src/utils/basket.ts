@@ -13,3 +13,6 @@ export const getItemsFromBasket = () => {
 
 export const setItemsToLocalBasket = (item: Array<IItemCard>) =>
   localStorage.setItem(BASKET_KEY_STORAGE, JSON.stringify(item));
+
+export const resetBasketItems = () =>
+  localStorage.removeItem(BASKET_KEY_STORAGE);

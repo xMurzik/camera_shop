@@ -13,7 +13,12 @@ const Header: React.FC = () => {
 
     return (
       countItems > 0 && (
-        <span className="header__basket-count">{countItems}</span>
+        <span
+          style={{ fontSize: countItems >= 100 ? '8px' : '11px' }}
+          className="header__basket-count"
+        >
+          {countItems}
+        </span>
       )
     );
   };

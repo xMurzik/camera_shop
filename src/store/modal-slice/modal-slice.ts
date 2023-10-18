@@ -9,6 +9,7 @@ interface ICatalogModalSlice {
   isShowModalToBuy: boolean;
   isShowModalSuccesBasket: boolean;
   isShowModalToDelete: boolean;
+  isShowThanksForBuy: boolean;
 }
 
 const initialState: ICatalogModalSlice = {
@@ -18,6 +19,7 @@ const initialState: ICatalogModalSlice = {
   isShowModalToBuy: false,
   isShowModalSuccesBasket: false,
   isShowModalToDelete: false,
+  isShowThanksForBuy: false,
 };
 
 const modalSlice = createSlice({
@@ -42,6 +44,7 @@ const modalSlice = createSlice({
       state.isShowModalSuccesBasket = false;
       state.isShowModalToBuy = false;
       state.isShowModalToDelete = false;
+      state.isShowThanksForBuy = false;
       document.body.style.overflow = 'unset';
     },
     onClickSuccessBuy: (state) => {
@@ -65,6 +68,13 @@ const modalSlice = createSlice({
         document.getElementById('delete-button-modal')?.focus();
       }, TIMEOUT);
     },
+    onClickMakeOrder: (state) => {
+      state.isShowThanksForBuy = true;
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        document.getElementById('back-to-shop')?.focus();
+      }, TIMEOUT);
+    },
   },
 });
 
@@ -75,6 +85,7 @@ export const {
   onClickOverlayOrExit,
   onClickSuccessBuy,
   onClickDeleteButton,
+  onClickMakeOrder,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

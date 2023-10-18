@@ -17,3 +17,6 @@ export const getIsShowModalToDelete = (state: State) =>
 
 export const getCurrentActiveDeleteItem = (state: State) =>
   state.modal.currentActiveDeleteItem;
+
+export const getIsShowThankForBuy = (state: State) =>
+  state.modal.isShowThanksForBuy;

@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
 import { IItemCard } from '../../types/basket';
-import { setItemsToLocalBasket, getItemsFromBasket } from '../../utils/basket';
+import {
+  setItemsToLocalBasket,
+  getItemsFromBasket,
+  resetBasketItems,
+} from '../../utils/basket';
 import { fetchCoupon } from './async-basket';
 import { SALES } from '../../constants/basket';
 
@@ -21,6 +25,12 @@ const basketSlice = createSlice({
   name: '@basket',
   initialState,
   reducers: {
+    resetBasket: (state) => {
+      state.isError = false;
+      state.items = [];
+      state.sale = null;
+      resetBasketItems();
+    },
     addItemsToBasket: (state, action: PayloadAction<IItem>) => {
       if (!state.items.some((el) => el.id === action.payload.id)) {
         state.items.push({ ...action.payload, count: 1 });
@@ -67,7 +77,6 @@ const basketSlice = createSlice({
     builder
       .addCase(fetchCoupon.pending, (state) => {
         state.isError = false;
-        state.sale = null;
       })
       .addCase(fetchCoupon.fulfilled, (state, action) => {
         let name: string;
@@ -86,6 +95,7 @@ const basketSlice = createSlice({
             break;
         }
         const result = { name, value: action.payload };
+
         state.sale = result;
       })
       .addCase(fetchCoupon.rejected, (state) => {
@@ -102,6 +112,7 @@ export const {
   decreaseCountItem,
   setCountItem,
   resetError,
+  resetBasket,
 } = basketSlice.actions;
 
 export default basketSlice.reducer;

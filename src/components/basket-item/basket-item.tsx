@@ -60,7 +60,7 @@ const BasketItem: React.FC<IItemCard> = (props) => {
   };
 
   const onChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setCountValue(Number(evt.target.value));
+    setCountValue(Number(evt.target.value.replace(/\D/gi, '')));
   };
 
   const onBlurInput = (evt: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -71,7 +71,6 @@ const BasketItem: React.FC<IItemCard> = (props) => {
     const { target } = evt;
     if (evt.key === 'Enter') {
       if (target instanceof HTMLInputElement) {
-        inputAction(Number(target.value));
         if (refInput.current) {
           refInput.current.blur();
         }
@@ -130,8 +129,9 @@ const BasketItem: React.FC<IItemCard> = (props) => {
         <label className="visually-hidden" htmlFor="counter1" />
         <input
           ref={refInput}
-          type="number"
+          type="text"
           id="counter1"
+          pattern="/\d{1,2}/"
           onBlur={onBlurInput}
           onChange={onChangeInput}
           onKeyDown={onClickEnter}
