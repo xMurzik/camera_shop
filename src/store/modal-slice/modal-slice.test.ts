@@ -15,6 +15,7 @@ describe('modal slice', () => {
     isShowModalToBuy: false,
     isShowModalSuccesBasket: false,
     isShowModalToDelete: false,
+    isShowThanksForBuy: false,
   };
 
   const activeItem = createItems()[0];
@@ -65,6 +66,7 @@ describe('modal slice', () => {
       isShowModalSuccesBasket: true,
       currentActiveDeleteItem: null,
       isShowModalToDelete: false,
+      isShowThanksForBuy: false,
     };
 
     const result = modalSlice(stateCopy, onClickOverlayOrExit);
@@ -80,6 +82,7 @@ describe('modal slice', () => {
       isShowModalSuccesBasket: false,
       currentActiveDeleteItem: null,
       isShowModalToDelete: false,
+      isShowThanksForBuy: false,
     };
 
     const expectedState = {
