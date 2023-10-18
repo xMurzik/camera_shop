@@ -1,6 +1,8 @@
 import { createItems } from '../../mocks/mock';
 import modalSlice, {
   onClickBuy,
+  onClickDeleteButton,
+  onClickMakeOrder,
   onClickOverlayOrExit,
   onClickSuccessBuy,
   setCurrentActiveBasketItem,
@@ -92,6 +94,51 @@ describe('modal slice', () => {
     };
 
     const result = modalSlice(stateCopy, onClickSuccessBuy);
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('onClickDeleteButton', () => {
+    const stateCopy = {
+      currentActiveCatalogItem: null,
+      currentActiveBasketItem: null,
+      isShowModalToBuy: false,
+      isShowModalSuccesBasket: false,
+      currentActiveDeleteItem: null,
+      isShowModalToDelete: false,
+      isShowThanksForBuy: false,
+    };
+
+    const items = createItems();
+
+    const expectedState = {
+      ...stateCopy,
+      isShowModalToDelete: true,
+      currentActiveDeleteItem: items[0],
+    };
+
+    const result = modalSlice(stateCopy, onClickDeleteButton(items[0]));
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('onClickMakeOrder', () => {
+    const stateCopy = {
+      currentActiveCatalogItem: null,
+      currentActiveBasketItem: null,
+      isShowModalToBuy: false,
+      isShowModalSuccesBasket: false,
+      currentActiveDeleteItem: null,
+      isShowModalToDelete: false,
+      isShowThanksForBuy: false,
+    };
+
+    const expectedState = {
+      ...stateCopy,
+      isShowThanksForBuy: true,
+    };
+
+    const result = modalSlice(stateCopy, onClickMakeOrder);
 
     expect(result).toEqual(expectedState);
   });

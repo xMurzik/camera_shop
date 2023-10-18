@@ -10,7 +10,7 @@ import { TIMER_RESET_ERROR } from '../../constants/basket';
 import { toast } from 'react-toastify';
 import s from './coupon-form.module.scss';
 
-const CouponForm = () => {
+const CouponForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const sale = useAppSelector(getSale);
   const isErrorCoupon = useAppSelector(isErrorSale);

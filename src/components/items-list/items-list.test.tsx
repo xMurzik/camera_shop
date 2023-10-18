@@ -22,6 +22,10 @@ describe('items list', () => {
 
     render(withBrowserRouter);
 
-    expect(screen.getByText('Таких камер нет в наличии')).toBeInTheDocument();
+    screen.debug();
+
+    expect(
+      screen.getByText('по вашему запросу ничего не найдено')
+    ).toBeInTheDocument();
   });
 });

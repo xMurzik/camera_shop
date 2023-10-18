@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import UseFocusModal from '../../hooks/use-focus-modal';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
 import { getIsShowThankForBuy } from '../../store/modal-slice/modal-selectorts';
-import { Path } from '../../constants/common';
+import { Path, TIMEOUT_SUCCESS } from '../../constants/common';
 
 const ModalThanksBuy: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,10 @@ const ModalThanksBuy: React.FC = () => {
 
   const onClickBackToShop = () => {
     onClickExit();
-    navigate(Path.Catalog);
+
+    setTimeout(() => {
+      navigate(Path.Catalog);
+    }, TIMEOUT_SUCCESS);
   };
 
   return (
