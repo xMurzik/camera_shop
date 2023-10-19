@@ -86,6 +86,9 @@ const ItemCard: React.FC<IItem> = (props) => {
       <div className="product-card__buttons">
         {itemsButtons()}
         <Link
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
           data-testid="button_more_info"
           className="btn btn--transparent"
           to={`${Path.Catalog}${id}`}
