@@ -7,6 +7,8 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { onClickBuy } from '../../store/modal-slice/modal-slice';
 import { formatPrice } from '../../utils/format';
 
+const ZERO = 0;
+
 const CarouselItem: React.FC<IItem> = (props) => {
   const {
     name,
@@ -24,6 +26,10 @@ const CarouselItem: React.FC<IItem> = (props) => {
 
   const onClickBuyButton = () => {
     dispatch(onClickBuy(props));
+  };
+
+  const onClickLink = () => {
+    window.scrollTo(ZERO, ZERO);
   };
 
   return (
@@ -66,7 +72,11 @@ const CarouselItem: React.FC<IItem> = (props) => {
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`${Path.Catalog}${id}`}>
+        <Link
+          onClick={onClickLink}
+          className="btn btn--transparent"
+          to={`${Path.Catalog}${id}`}
+        >
           Подробнее
         </Link>
       </div>
