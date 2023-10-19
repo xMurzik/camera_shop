@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RateBar from '../rate-bar/rate-bar';
 import UseFocusModal from '../../hooks/use-focus-modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -13,12 +13,14 @@ interface IModalReviewProps {
   isActive: boolean;
   setIsShowModalOverlay: React.Dispatch<React.SetStateAction<boolean>>;
   setIsShowModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  refButton: React.MutableRefObject<HTMLButtonElement | null>;
 }
 
 const ModalReview: React.FC<IModalReviewProps> = ({
   isActive,
   setIsShowModalOverlay,
   setIsShowModalSuccess,
+  refButton,
 }) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -29,6 +31,7 @@ const ModalReview: React.FC<IModalReviewProps> = ({
     reset,
     handleSubmit,
     watch,
+    setFocus,
     formState: { errors },
   } = useForm<IReviewComment>({
     defaultValues: {
@@ -52,9 +55,6 @@ const ModalReview: React.FC<IModalReviewProps> = ({
         .then(() => {
           setIsShowModalOverlay(false);
           setIsShowModalSuccess(true);
-          setTimeout(() => {
-            document.getElementById('button-back-to-shop')?.focus();
-          }, TIMEOUT);
           reset();
         });
     }
@@ -69,6 +69,53 @@ const ModalReview: React.FC<IModalReviewProps> = ({
     document.body.style.overflow = 'unset';
     setTimeout(() => reset(), TIMEOUT);
   };
+
+  useEffect(() => {
+    const onClickNewRev = () => {
+      setIsShowModalOverlay(true);
+
+      setTimeout(() => {
+        setFocus('name');
+      }, TIMEOUT);
+
+      document.body.style.overflow = 'hidden';
+    };
+
+    const onClickEsc = (evt: KeyboardEvent) => {
+      if (evt.code === 'Escape') {
+        setIsShowModalOverlay(false);
+        setIsShowModalSuccess(false);
+
+        setTimeout(() => {
+          reset();
+        }, TIMEOUT);
+
+        document.body.style.overflow = 'unset';
+      }
+    };
+
+    document.addEventListener('keydown', onClickEsc);
+
+    if (refButton.current) {
+      refButton.current.addEventListener('click', onClickNewRev);
+    }
+
+    const current = refButton.current;
+
+    return () => {
+      document.removeEventListener('keydown', onClickEsc);
+
+      if (current) {
+        current.removeEventListener('click', onClickNewRev);
+      }
+    };
+  }, [
+    refButton,
+    reset,
+    setFocus,
+    setIsShowModalOverlay,
+    setIsShowModalSuccess,
+  ]);
 
   return (
     <div ref={refModalDiv} className={`modal ${isActive ? 'is-active' : ''}`}>

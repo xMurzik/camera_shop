@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   getCurrentActiveCatalogItem,
@@ -11,14 +11,16 @@ import {
 import UseFocusModal from '../../hooks/use-focus-modal';
 import { formatPrice } from '../../utils/format';
 import { addItemsToBasket } from '../../store/basket-slice/basket-slice';
+import { TIMEOUT } from '../../constants/common';
 
 const ModalItem: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const refButtonBuy = useRef<null | HTMLButtonElement>(null);
   const isActive = useAppSelector(getIsShowModalToBuy);
   const data = useAppSelector(getCurrentActiveCatalogItem);
 
   const onClickExit = () => {
+    document.body.style.overflow = 'unset';
     dispatch(onClickOverlayOrExit());
   };
 
@@ -30,6 +32,15 @@ const ModalItem: React.FC = () => {
   };
 
   const refModalDiv = UseFocusModal();
+
+  useEffect(() => {
+    if (isActive) {
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        refButtonBuy.current?.focus();
+      }, TIMEOUT);
+    }
+  }, [isActive]);
 
   if (!data) {
     return null;
@@ -82,6 +93,7 @@ const ModalItem: React.FC = () => {
               className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
               id="add-item-to-basket"
+              ref={refButtonBuy}
               onClick={onClickButtonSuccessBuy}
             >
               <svg width="24" height="16" aria-hidden="true">

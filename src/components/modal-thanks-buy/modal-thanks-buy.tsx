@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import UseFocusModal from '../../hooks/use-focus-modal';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
 import { getIsShowThankForBuy } from '../../store/modal-slice/modal-selectorts';
-import { Path, TIMEOUT_SUCCESS } from '../../constants/common';
+import { Path, TIMEOUT, TIMEOUT_SUCCESS } from '../../constants/common';
 
 const ModalThanksBuy: React.FC = () => {
   const dispatch = useAppDispatch();
   const refDiv = UseFocusModal();
   const navigate = useNavigate();
 
+  const refBackToShop = useRef<HTMLButtonElement | null>(null);
+
   const isShow = useAppSelector(getIsShowThankForBuy);
 
   const onClickExit = () => {
+    document.body.style.overflow = 'unset';
     dispatch(onClickOverlayOrExit());
   };
 
@@ -24,6 +27,15 @@ const ModalThanksBuy: React.FC = () => {
       navigate(Path.Catalog);
     }, TIMEOUT_SUCCESS);
   };
+
+  useEffect(() => {
+    if (isShow) {
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        refBackToShop.current?.focus();
+      }, TIMEOUT);
+    }
+  }, [isShow]);
 
   return (
     <div
@@ -46,6 +58,7 @@ const ModalThanksBuy: React.FC = () => {
             <button
               onClick={onClickBackToShop}
               id="back-to-shop"
+              ref={refBackToShop}
               className="btn btn--purple modal__btn modal__btn--fit-width"
             >
               Вернуться к покупкам

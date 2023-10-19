@@ -32,9 +32,7 @@ const ItemPageInfo: React.FC = () => {
 
   const [statusDescription, setStatusDescription] = useState<InfoItem>(() => {
     switch (paramDesctiption) {
-      case null:
-        return InfoItem.description;
-      case InfoItem.description:
+      case null || InfoItem.description:
         return InfoItem.description;
       case InfoItem.characteristics:
         return InfoItem.characteristics;

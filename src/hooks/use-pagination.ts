@@ -9,6 +9,10 @@ interface IUsePaginationParams {
   maxElems: number;
 }
 
+const THREE = 3;
+const ONE = 1;
+const ZERO = 0;
+
 const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
   const dispatch = useAppDispatch();
   const [params, setParams] = useSearchParams();
@@ -23,8 +27,8 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
       chunkArray(
         Array(maxPageCount)
           .fill(null)
-          .map((_, i) => i + 1),
-        3
+          .map((_, i) => i + ONE),
+        THREE
       ) as number[][],
     [maxPageCount]
   );
@@ -43,7 +47,7 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     if (checkUrlParams(urlValue, maxPageCount)) {
       params.set('page', '1');
       setParams(params);
-      setSelectedCurrentPageUrl(0);
+      setSelectedCurrentPageUrl(ZERO);
     } else {
       setSelectedCurrentPageUrl(() =>
         allPaggPages.findIndex((el) => el.includes(Number(urlValue)))
@@ -52,13 +56,13 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
   }, [allPaggPages, dispatch, maxPageCount, params, setParams, urlValue]);
 
   const onClickPrev = useCallback(() => {
-    const newPage = Number(urlValue) - 1;
+    const newPage = Number(urlValue) - ONE;
     params.set('page', newPage.toString());
     setParams(params);
   }, [params, setParams, urlValue]);
 
   const onClickNext = useCallback(() => {
-    const newPage = Number(urlValue) + 1;
+    const newPage = Number(urlValue) + ONE;
     params.set('page', newPage.toString());
     setParams(params);
   }, [params, setParams, urlValue]);
@@ -71,8 +75,8 @@ const usePagination = ({ items, maxElems }: IUsePaginationParams) => {
     [params, setParams]
   );
 
-  const isFirstPage = !(selectedCurrentPageUrl === 0);
-  const isLastPage = !(selectedCurrentPageUrl === allPaggPages.length - 1);
+  const isFirstPage = !(selectedCurrentPageUrl === ZERO);
+  const isLastPage = !(selectedCurrentPageUrl === allPaggPages.length - ONE);
 
   return {
     onClickNumber,

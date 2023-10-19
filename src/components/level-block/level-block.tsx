@@ -53,9 +53,7 @@ const LevelBlock: React.FC = () => {
         params.set(FilterParam.Level, JSON.stringify(types));
         setParams(params);
         return;
-      }
-
-      if (paramType) {
+      } else {
         const prevVal: Array<string> = JSON.parse(paramType) as Array<string>;
 
         if (prevVal.includes(evt.target.name)) {

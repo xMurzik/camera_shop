@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import UseFocusModal from '../../hooks/use-focus-modal';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
@@ -8,6 +8,7 @@ import {
 import { CameraCategory } from '../../constants/sort-filters';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
 import { deleteAllItems } from '../../store/basket-slice/basket-slice';
+import { TIMEOUT } from '../../constants/common';
 
 const ModalRemoveItem: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,15 +17,29 @@ const ModalRemoveItem: React.FC = () => {
 
   const refDiv = UseFocusModal();
 
+  const refDeleteButton = useRef<null | HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isActive) {
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => {
+        refDeleteButton.current?.focus();
+      }, TIMEOUT);
+    }
+  }, [isActive]);
+
   if (!data) {
     return null;
   }
 
   const onClickOverlay = () => {
+    document.body.style.overflow = 'unset';
     dispatch(onClickOverlayOrExit());
   };
 
   const onClickDelete = () => {
+    document.body.style.overflow = 'unset';
     dispatch(deleteAllItems(data.id));
     dispatch(onClickOverlayOrExit());
   };
@@ -75,6 +90,7 @@ const ModalRemoveItem: React.FC = () => {
               className="btn btn--purple modal__btn modal__btn--half-width"
               type="button"
               id="delete-button-modal"
+              ref={refDeleteButton}
               onClick={onClickDelete}
             >
               Удалить

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IItem } from '../../types/items';
-import { TIMEOUT, TIMEOUT_SUCCESS } from '../../constants/common';
 
 interface ICatalogModalSlice {
   currentActiveCatalogItem: IItem | null;
@@ -35,45 +34,23 @@ const modalSlice = createSlice({
     onClickBuy: (state, action: PayloadAction<IItem>) => {
       state.isShowModalToBuy = true;
       state.currentActiveCatalogItem = { ...action.payload };
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        document.getElementById('add-item-to-basket')?.focus();
-      }, TIMEOUT);
     },
     onClickOverlayOrExit: (state) => {
       state.isShowModalSuccesBasket = false;
       state.isShowModalToBuy = false;
       state.isShowModalToDelete = false;
       state.isShowThanksForBuy = false;
-      document.body.style.overflow = 'unset';
     },
     onClickSuccessBuy: (state) => {
       state.isShowModalToBuy = false;
       state.isShowModalSuccesBasket = true;
-
-      setTimeout(() => {
-        if (document.activeElement !== document.querySelector('#cont-to-buy')) {
-          (
-            document.querySelector('#cont-to-buy') as HTMLButtonElement
-          )?.focus();
-        }
-      }, TIMEOUT_SUCCESS);
     },
     onClickDeleteButton: (state, action: PayloadAction<IItem>) => {
       state.isShowModalToDelete = true;
       state.currentActiveDeleteItem = { ...action.payload };
-      document.body.style.overflow = 'hidden';
-
-      setTimeout(() => {
-        document.getElementById('delete-button-modal')?.focus();
-      }, TIMEOUT);
     },
     onClickMakeOrder: (state) => {
       state.isShowThanksForBuy = true;
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        document.getElementById('back-to-shop')?.focus();
-      }, TIMEOUT);
     },
   },
 });

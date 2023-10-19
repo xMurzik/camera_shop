@@ -11,27 +11,27 @@ import { toast } from 'react-toastify';
 import { onClickMakeOrder } from '../../store/modal-slice/modal-slice';
 import { resetBasket } from '../../store/basket-slice/basket-slice';
 
+const ONE_HUNDRED = 100;
+const ZERO = 0;
+const RED = '#ed6041';
+const BLACK = '#333';
+
 const OrderInfo: React.FC = () => {
   const dispatch = useAppDispatch();
   const itemsBasket = useAppSelector(getItemsFromBasket);
   const sale = useAppSelector(getSale);
 
   const sumPrice = useMemo(
-    () => itemsBasket.reduce((acc, el) => acc + el.count * el.price, 0),
+    () => itemsBasket.reduce((acc, el) => acc + el.count * el.price, ZERO),
     [itemsBasket]
   );
 
-  const priceWithSale = sale ? (sumPrice / 100) * sale.value : 0;
+  const priceWithSale = sale ? (sumPrice / ONE_HUNDRED) * sale.value : ZERO;
 
-  const formatPriceColor = useMemo(() => {
-    if (sale) {
-      if (!itemsBasket.length) {
-        return '#333';
-      }
-      return '#ed6041';
-    }
-    return '#333';
-  }, [itemsBasket.length, sale]);
+  const formatPriceColor = useMemo(
+    () => (sale && itemsBasket.length ? RED : BLACK),
+    [itemsBasket.length, sale]
+  );
 
   const onClickHandlerMakeOrder = () => {
     dispatch(makeOrder(itemsBasket))

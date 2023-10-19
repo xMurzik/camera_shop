@@ -11,8 +11,8 @@ const ModalSuccess: React.FC<IModalSuccessProps> = ({
   setIsShowModalSuccess,
 }) => {
   const onClickButtonBackToShop = () => {
-    setIsShowModalSuccess(false);
     document.body.style.overflow = 'unset';
+    setIsShowModalSuccess(false);
   };
 
   const refModalDiv = UseFocusModal();

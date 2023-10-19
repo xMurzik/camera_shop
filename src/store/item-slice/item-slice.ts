@@ -3,6 +3,7 @@ import { IItem } from '../../types/items';
 import { IComment } from '../../types/comments';
 import { fetchItem, fetchPostComment } from './async-item';
 import { toast } from 'react-toastify';
+import { TIMEOUT } from '../../constants/common';
 
 interface IItemSlice {
   item: IItem | null;
@@ -34,6 +35,11 @@ const itemSlice = createSlice({
       })
       .addCase(fetchPostComment.rejected, () => {
         toast.warn('Ошибка отправки, попробуйте позже');
+      })
+      .addCase(fetchPostComment.fulfilled, () => {
+        setTimeout(() => {
+          document.getElementById('button-back-to-shop')?.focus();
+        }, TIMEOUT);
       });
   },
 });

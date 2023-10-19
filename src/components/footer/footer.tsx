@@ -1,54 +1,56 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Path } from '../../constants/common';
 
 const Footer: React.FC = () => (
   <footer className="footer">
     <div className="container">
       <div className="footer__info">
-        <a
+        <Link
           className="footer__logo"
-          href="index.html"
+          to={Path.Catalog}
           aria-label="Переход на главную"
         >
           <svg width={100} height={36} aria-hidden="true">
             <use xlinkHref="#icon-logo-mono" />
           </svg>
-        </a>
+        </Link>
         <p className="footer__description">
           Интернет-магазин фото- и видеотехники
         </p>
         <ul className="social">
           <li className="social__item">
-            <a
+            <Link
               className="link"
-              href="#"
+              to={Path.Catalog}
               aria-label="Переход на страницу вконтатке"
             >
               <svg width={20} height={20} aria-hidden="true">
                 <use xlinkHref="#icon-vk" />
               </svg>
-            </a>
+            </Link>
           </li>
           <li className="social__item">
-            <a
+            <Link
               className="link"
-              href="#"
+              to={Path.Catalog}
               aria-label="Переход на страницу pinterest"
             >
               <svg width={20} height={20} aria-hidden="true">
                 <use xlinkHref="#icon-pinterest" />
               </svg>
-            </a>
+            </Link>
           </li>
           <li className="social__item">
-            <a
+            <Link
               className="link"
-              href="#"
+              to={Path.Catalog}
               aria-label="Переход на страницу reddit"
             >
               <svg width={20} height={20} aria-hidden="true">
                 <use xlinkHref="#icon-reddit" />
               </svg>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -57,24 +59,24 @@ const Footer: React.FC = () => (
           <p className="footer__title">Навигация</p>
           <ul className="footer__list">
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Каталог
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Гарантии
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Доставка
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 О компании
-              </a>
+              </Link>
             </li>
           </ul>
         </li>
@@ -82,19 +84,19 @@ const Footer: React.FC = () => (
           <p className="footer__title">Ресурсы</p>
           <ul className="footer__list">
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Курсы операторов
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Блог
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Сообщество
-              </a>
+              </Link>
             </li>
           </ul>
         </li>
@@ -102,14 +104,14 @@ const Footer: React.FC = () => (
           <p className="footer__title">Поддержка</p>
           <ul className="footer__list">
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 FAQ
-              </a>
+              </Link>
             </li>
             <li className="footer__item">
-              <a className="link" href="#">
+              <Link className="link" to={Path.Catalog}>
                 Задать вопрос
-              </a>
+              </Link>
             </li>
           </ul>
         </li>

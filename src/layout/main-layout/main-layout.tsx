@@ -16,6 +16,7 @@ const MainLayout: React.FC = () => {
   useEffect(() => {
     const onClickEsc = (evt: KeyboardEvent) => {
       if (evt.code === 'Escape') {
+        document.body.style.overflow = 'unset';
         dispatch(onClickOverlayOrExit());
       }
     };

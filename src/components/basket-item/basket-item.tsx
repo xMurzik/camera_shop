@@ -11,6 +11,9 @@ import { toast } from 'react-toastify';
 import { CameraCategory } from '../../constants/sort-filters';
 import { onClickDeleteButton } from '../../store/modal-slice/modal-slice';
 
+const ONE = 1;
+const NINETY_NINE = 99;
+
 const BasketItem: React.FC<IItemCard> = (props) => {
   const {
     id,
@@ -36,22 +39,22 @@ const BasketItem: React.FC<IItemCard> = (props) => {
 
   const onClickIncreaseButton = () => {
     dispatch(increaseCountItem(id));
-    setCountValue((prev) => prev + 1);
+    setCountValue((prev) => prev + ONE);
   };
 
   const onClickDecreaseButton = () => {
     dispatch(decreaseCountItem(id));
-    setCountValue((prev) => prev - 1);
+    setCountValue((prev) => prev - ONE);
   };
 
   const inputAction = (value: number) => {
     if (Number(value) <= 0) {
-      dispatch(setCountItem({ id, count: 1 }));
-      setCountValue(1);
+      dispatch(setCountItem({ id, count: ONE }));
+      setCountValue(ONE);
       toast.warn('Нельзя воодить значения меньше 1');
-    } else if (Number(value) > 99) {
-      dispatch(setCountItem({ id, count: 99 }));
-      setCountValue(99);
+    } else if (Number(value) > NINETY_NINE) {
+      dispatch(setCountItem({ id, count: NINETY_NINE }));
+      setCountValue(NINETY_NINE);
       toast.warn('Нельзя воодить значения больше 99');
     } else {
       setCountValue(Number(value));
@@ -117,7 +120,7 @@ const BasketItem: React.FC<IItemCard> = (props) => {
       </p>
       <div className="quantity">
         <button
-          disabled={count <= 1}
+          disabled={count <= ONE}
           onClick={onClickDecreaseButton}
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
@@ -136,12 +139,12 @@ const BasketItem: React.FC<IItemCard> = (props) => {
           onChange={onChangeInput}
           onKeyDown={onClickEnter}
           value={countValue}
-          min={1}
-          max={99}
+          min={ONE}
+          max={NINETY_NINE}
           aria-label="количество товара"
         />
         <button
-          disabled={count >= 99}
+          disabled={count >= NINETY_NINE}
           onClick={onClickIncreaseButton}
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"

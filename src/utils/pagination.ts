@@ -13,11 +13,6 @@ export function chunkArray(
 }
 
 export function checkUrlParams(value: string | null, maxPageCount: number) {
-  if (!value || !Number(value)) {
-    return true;
-  }
-
-  if (Number(value) > maxPageCount || Number(value) <= 0) {
-    return true;
-  }
+  const numValue = Number(value);
+  return Number.isNaN(numValue) || numValue > maxPageCount || numValue <= 0;
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Path } from '../../constants/common';
+import { Path, TIMEOUT_SUCCESS } from '../../constants/common';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getIsShowModalSuccesBasket } from '../../store/modal-slice/modal-selectorts';
 import { onClickOverlayOrExit } from '../../store/modal-slice/modal-slice';
@@ -11,13 +11,19 @@ const ModalSuccessBasket: React.FC = () => {
   const isActive = useAppSelector(getIsShowModalSuccesBasket);
   const navigate = useNavigate();
   const isItemPage = useParams();
+  const refContBuyButton = useRef<null | HTMLButtonElement>(null);
 
   const onClickOverlay = () => {
     dispatch(onClickOverlayOrExit());
+    document.body.style.overflow = 'unset';
   };
 
   const onClickButtonContBuy = () => {
     dispatch(onClickOverlayOrExit());
+
+    setTimeout(() => {
+      document.body.style.overflow = 'unset';
+    }, TIMEOUT_SUCCESS);
 
     if ('id' in isItemPage) {
       navigate(Path.Catalog);
@@ -25,6 +31,16 @@ const ModalSuccessBasket: React.FC = () => {
   };
 
   const refModalDiv = UseFocusModal();
+
+  useEffect(() => {
+    if (isActive) {
+      setTimeout(() => {
+        if (document.activeElement !== refContBuyButton.current) {
+          refContBuyButton.current?.focus();
+        }
+      }, TIMEOUT_SUCCESS);
+    }
+  }, [isActive]);
 
   return (
     <div className={`modal ${isActive ? 'is-active' : ''} modal--narrow`}>
@@ -46,6 +62,7 @@ const ModalSuccessBasket: React.FC = () => {
               onClick={onClickButtonContBuy}
               className="btn btn--transparent modal__btn"
               id="cont-to-buy"
+              ref={refContBuyButton}
             >
               Продолжить покупки
             </button>

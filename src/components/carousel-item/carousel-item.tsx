@@ -25,6 +25,7 @@ const CarouselItem: React.FC<IItem> = (props) => {
   const onClickBuyButton = () => {
     dispatch(onClickBuy(props));
   };
+
   return (
     <>
       <div className="product-card__img">
