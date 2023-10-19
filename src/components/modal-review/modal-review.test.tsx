@@ -7,11 +7,14 @@ import { createFakeStore } from '../../mocks/mock';
 describe('modal review', () => {
   const fakeStore = createFakeStore();
   it('shoud render correctly', () => {
+    const ref = { current: null };
+
     const { withStoreComponent } = withStore(
       <ModalReview
         isActive
         setIsShowModalOverlay={() => undefined}
         setIsShowModalSuccess={() => undefined}
+        refButton={ref}
       />,
       fakeStore
     );
