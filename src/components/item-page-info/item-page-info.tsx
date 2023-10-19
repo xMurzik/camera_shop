@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { flushSync } from 'react-dom';
 import {
   Link,
   useNavigate,
@@ -13,6 +14,8 @@ import classNames from 'classnames';
 import { getDataItem } from '../../store/item-slice/item-selectorts';
 import { onClickBuy } from '../../store/modal-slice/modal-slice';
 import { formatPrice } from '../../utils/format';
+import { RotatingLines } from 'react-loader-spinner';
+import s from './item-page-info.module.scss';
 
 const enum InfoItem {
   description = 'description',
@@ -62,6 +65,11 @@ const ItemPageInfo: React.FC = () => {
     if (id) {
       dispatch(fetchItem(Number(id)))
         .unwrap()
+        .then(() => {
+          flushSync(() => {
+            setIsLoading(true);
+          });
+        })
         .catch(() => {
           navigate(`${Path.NotFound}`, { replace: true });
         })
@@ -76,6 +84,20 @@ const ItemPageInfo: React.FC = () => {
       dispatch(onClickBuy(dataItem));
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className={s['loader-container']}>
+        <RotatingLines
+          strokeColor="#7575e2"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="250"
+          visible
+        />
+      </div>
+    );
+  }
 
   if (!dataItem || isLoading) {
     return null;
