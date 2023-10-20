@@ -8,7 +8,10 @@ describe('coupin form', () => {
   it('shoud render correctly', () => {
     const fakeStore = createFakeStore();
 
-    const { withStoreComponent } = withStore(<CouponForm />, fakeStore);
+    const { withStoreComponent } = withStore(
+      <CouponForm setValueInput={() => undefined} valueInput="" />,
+      fakeStore
+    );
 
     render(withStoreComponent);
     expect(screen.getByText('Промокод')).toBeInTheDocument();
