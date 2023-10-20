@@ -51,11 +51,11 @@ const BasketItem: React.FC<IItemCard> = (props) => {
     if (Number(value) <= 0) {
       dispatch(setCountItem({ id, count: ONE }));
       setCountValue(ONE);
-      toast.warn('Нельзя воодить значения меньше 1');
+      toast.warn('Нельзя вводить значения меньше 1');
     } else if (Number(value) > NINETY_NINE) {
       dispatch(setCountItem({ id, count: NINETY_NINE }));
       setCountValue(NINETY_NINE);
-      toast.warn('Нельзя воодить значения больше 99');
+      toast.warn('Нельзя вводить значения больше 99');
     } else {
       setCountValue(Number(value));
       dispatch(setCountItem({ id, count: Number(value) }));

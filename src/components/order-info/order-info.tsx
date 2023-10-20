@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   getItemsFromBasket,
@@ -21,6 +21,8 @@ const OrderInfo: React.FC = () => {
   const itemsBasket = useAppSelector(getItemsFromBasket);
   const sale = useAppSelector(getSale);
 
+  const [valueInput, setValueInput] = useState(sale ? sale.name : '');
+
   const sumPrice = useMemo(
     () => itemsBasket.reduce((acc, el) => acc + el.count * el.price, ZERO),
     [itemsBasket]
@@ -38,6 +40,7 @@ const OrderInfo: React.FC = () => {
       .unwrap()
       .then(() => {
         dispatch(resetBasket());
+        setValueInput('');
         dispatch(onClickMakeOrder());
       })
       .catch(() => {
@@ -52,7 +55,7 @@ const OrderInfo: React.FC = () => {
           Если у вас есть промокод на скидку, примените его в этом поле
         </p>
         <div className="basket-form">
-          <CouponForm />
+          <CouponForm valueInput={valueInput} setValueInput={setValueInput} />
         </div>
       </div>
       <div className="basket__summary-order">

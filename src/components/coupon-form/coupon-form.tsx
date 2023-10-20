@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {
   getSale,
@@ -10,11 +10,18 @@ import { TIMER_RESET_ERROR } from '../../constants/basket';
 import { toast } from 'react-toastify';
 import s from './coupon-form.module.scss';
 
-const CouponForm: React.FC = () => {
+interface ICouponFormProps {
+  valueInput: string;
+  setValueInput: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const CouponForm: React.FC<ICouponFormProps> = ({
+  valueInput,
+  setValueInput,
+}) => {
   const dispatch = useAppDispatch();
   const sale = useAppSelector(getSale);
   const isErrorCoupon = useAppSelector(isErrorSale);
-  const [valueInput, setValueInput] = useState(sale ? sale.name : '');
 
   const onChangeInputSale = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValueInput(evt.target.value.replace(/\s/gi, ''));
